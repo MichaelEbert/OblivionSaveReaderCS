@@ -105,7 +105,7 @@ namespace OblivionSaveReader.web
                 }
                 catch(Exception ex)
                 {
-                    Console.Write(ex.StackTrace);
+                    System.Diagnostics.Trace.Write(ex.StackTrace);
                 }
             }
             if (cacheUpdated)

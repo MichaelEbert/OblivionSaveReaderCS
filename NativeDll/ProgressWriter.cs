@@ -78,9 +78,17 @@ namespace OblivionSaveReader
 						isSet = true;
 					}
 					// update gate closures at the same time
-					if (gateCloseLinkCell != null && (record.flags & 0x7000005) == 0x7000005)
+					if (gateCloseLinkCell != null) 
 					{
-						savedata.misc[gateCloseLinkCell.id] = true;
+						var gateRecord = saveFile.records.Find(rec => rec.formId == gateCloseLinkCell.formIdInt);
+						if (gateRecord?.subRecord is RecordInstanceReference gateInstance && ((gateInstance.flags & 0x2000) == 0x2000))
+						{
+							savedata.misc[gateCloseLinkCell.id] = true;
+						}
+                        else
+                        {
+							savedata.misc[gateCloseLinkCell.id] = false;
+						}
 					}
 				}
 				if (!isSet)

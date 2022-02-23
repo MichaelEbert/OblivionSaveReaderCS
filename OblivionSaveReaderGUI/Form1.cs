@@ -41,7 +41,7 @@ namespace OblivionSaveReaderGUI
             }
             saveWatcher = new SaveWatcher((filename) =>
             {
-                if(currentUpload == null || currentUpload.Status != TaskStatus.Running)
+                if(currentUpload == null || (currentUpload.Status == TaskStatus.RanToCompletion || currentUpload.Status == TaskStatus.Faulted || currentUpload.Status == TaskStatus.Canceled))
                 {
                     currentUpload = Task.Run(async () =>
                     {
@@ -57,6 +57,10 @@ namespace OblivionSaveReaderGUI
                             currentUpload = null;
                         }
                     });
+                }
+                else
+                {
+                    Trace.WriteLine("Skipping upload since upload already in progress.");
                 }
             });
             Trace.WriteLine("Watching directory " + saveWatcher.WatchPath);
