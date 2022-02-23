@@ -32,7 +32,7 @@ namespace OblivionSaveReaderGUI
                 return;
             }
 
-            progressWriter = await ProgressWriter.Create(jsonDataUrlTextbox.Text, false);
+            progressWriter = await ProgressWriter.Create(jsonDataUrlTextbox.Text, forceRefreshCheckbox.Checked);
             progressUploader = new ProgressUploader(uploadUrlTextbox.Text, shareCodeTextbox.Text, shareKeyTextbox.Text);
             
             if(saveWatcher != null)

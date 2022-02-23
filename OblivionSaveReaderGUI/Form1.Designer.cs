@@ -47,6 +47,7 @@
             this.uploadUrlLabel = new System.Windows.Forms.Label();
             this.jsonDataUrlTextbox = new System.Windows.Forms.TextBox();
             this.uploadUrlTextbox = new System.Windows.Forms.TextBox();
+            this.forceRefreshCheckbox = new System.Windows.Forms.CheckBox();
             this.tabControl1.SuspendLayout();
             this.tabPageBasic.SuspendLayout();
             this.tabPageAdvanced.SuspendLayout();
@@ -112,7 +113,7 @@
             // 
             // startButton
             // 
-            this.startButton.Location = new System.Drawing.Point(12, 224);
+            this.startButton.Location = new System.Drawing.Point(12, 243);
             this.startButton.Name = "startButton";
             this.startButton.Size = new System.Drawing.Size(75, 23);
             this.startButton.TabIndex = 6;
@@ -139,7 +140,7 @@
             this.tabControl1.Location = new System.Drawing.Point(12, 42);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(515, 176);
+            this.tabControl1.Size = new System.Drawing.Size(515, 195);
             this.tabControl1.TabIndex = 9;
             // 
             // tabPageBasic
@@ -158,6 +159,7 @@
             // 
             // tabPageAdvanced
             // 
+            this.tabPageAdvanced.Controls.Add(this.forceRefreshCheckbox);
             this.tabPageAdvanced.Controls.Add(this.saveFileDirectoryTextbox);
             this.tabPageAdvanced.Controls.Add(this.saveFilePathLabel);
             this.tabPageAdvanced.Controls.Add(this.jsonDataUrlLabel);
@@ -167,7 +169,7 @@
             this.tabPageAdvanced.Location = new System.Drawing.Point(4, 24);
             this.tabPageAdvanced.Name = "tabPageAdvanced";
             this.tabPageAdvanced.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageAdvanced.Size = new System.Drawing.Size(507, 148);
+            this.tabPageAdvanced.Size = new System.Drawing.Size(507, 167);
             this.tabPageAdvanced.TabIndex = 1;
             this.tabPageAdvanced.Text = "Advanced";
             this.tabPageAdvanced.UseVisualStyleBackColor = true;
@@ -227,6 +229,17 @@
             this.uploadUrlTextbox.Size = new System.Drawing.Size(407, 23);
             this.uploadUrlTextbox.TabIndex = 0;
             // 
+            // forceRefreshCheckbox
+            // 
+            this.forceRefreshCheckbox.AutoSize = true;
+            this.forceRefreshCheckbox.Location = new System.Drawing.Point(11, 142);
+            this.forceRefreshCheckbox.Name = "forceRefreshCheckbox";
+            this.forceRefreshCheckbox.Size = new System.Drawing.Size(97, 19);
+            this.forceRefreshCheckbox.TabIndex = 7;
+            this.forceRefreshCheckbox.Text = "Force Refresh";
+            this.shareCodeTooltip.SetToolTip(this.forceRefreshCheckbox, "Force redownload of json files instead of using cached ones");
+            this.forceRefreshCheckbox.UseVisualStyleBackColor = true;
+            // 
             // OblivionSaveUploader
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -269,5 +282,6 @@
         private TextBox saveFileDirectoryTextbox;
         private Label saveFilePathLabel;
         private Label jsonDataUrlLabel;
+        private CheckBox forceRefreshCheckbox;
     }
 }
