@@ -5,8 +5,10 @@ namespace OblivionSaveReaderGUI
 {
     public partial class OblivionSaveUploader : Form
     {
-        private OblivionSaveReader.OblivionSaveUploader? uploader;
         private SaveWatcher? saveWatcher;
+        private ProgressWriter? progressWriter;
+        private ProgressUploader? progressUploader;
+        private Task? currentUpload = null;
 
         public OblivionSaveUploader()
         {
@@ -22,34 +24,43 @@ namespace OblivionSaveReaderGUI
 
         }
 
-        private void startButton_Click(object sender, EventArgs e)
+        private async void startButton_Click(object sender, EventArgs e)
         {
             if(shareCodeTextbox.Text == "" || shareKeyTextbox.Text == "")
             {
                 loggingTextBox.AppendText("Invalid share code/key"+Environment.NewLine);
                 return;
             }
-            if(uploader == null)
+
+            progressWriter = await ProgressWriter.Create(jsonDataUrlTextbox.Text, false);
+            progressUploader = new ProgressUploader(uploadUrlTextbox.Text, shareCodeTextbox.Text, shareKeyTextbox.Text);
+            
+            if(saveWatcher != null)
             {
-                uploader = new OblivionSaveReader.OblivionSaveUploader(jsonDataUrlTextbox.Text);
+                saveWatcher.Dispose();
             }
-            else
+            saveWatcher = new SaveWatcher((filename) =>
             {
-                uploader.JsonDataUrl = jsonDataUrlTextbox.Text;
-            }
-            uploader.PostUrl = uploadUrlTextbox.Text;
-            uploader.ShareCode = shareCodeTextbox.Text;
-            uploader.ShareKey = shareKeyTextbox.Text;
-            uploader.LoadJsonData().ContinueWith((task) =>
-            {
-                if(saveWatcher != null)
+                if(currentUpload == null || currentUpload.Status != TaskStatus.Running)
                 {
-                    saveWatcher.Dispose();
+                    currentUpload = Task.Run(async () =>
+                    {
+                        var saveFile = await ProgressUploader.LoadSaveFile(filename);
+                        var progressFile = progressWriter.CreateUserProgressFile(saveFile);
+                        await progressUploader.UploadSave(progressFile);
+                    }).ContinueWith(task =>
+                    {
+                        if (task.IsFaulted)
+                        {
+                            Trace.WriteLine("Exception encounterd during processing:");
+                            Trace.Write(task.Exception?.ToString());
+                            currentUpload = null;
+                        }
+                    });
                 }
-                saveWatcher = new SaveWatcher(uploader.OnFileChanged);
-                Trace.WriteLine("Watching directory " + saveWatcher.WatchPath);
-                saveWatcher.Start();
             });
+            Trace.WriteLine("Watching directory " + saveWatcher.WatchPath);
+            saveWatcher.Start();
         }
     }
 }

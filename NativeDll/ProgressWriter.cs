@@ -9,13 +9,29 @@ using System.Threading.Tasks;
 
 namespace OblivionSaveReader
 {
+	/// <summary>
+	/// Class that creates a progress file from the save file object.
+	/// </summary>
 	public class ProgressWriter
 	{
 		private Dictionary<string, Hive> jsondata;
 
-		public ProgressWriter(Dictionary<string, Hive> jsondata)
+		/// <summary>
+		/// Create a progressWriter. May fetch data from the web, so its async.
+		/// </summary>
+		/// <param name="progressJsonUrl"></param>
+		/// <param name="forceRefresh"></param>
+		/// <returns></returns>
+		public static async Task<ProgressWriter> Create(string progressJsonUrl, bool forceRefresh = false)
         {
-			this.jsondata = jsondata;
+			WebDataRetriever dataMaker = new WebDataRetriever();
+			var data = await dataMaker.getData(progressJsonUrl, forceRefresh);
+			return new ProgressWriter(data);
+		}
+
+		private ProgressWriter(Dictionary<string, Hive> jsondata)
+        {
+			this.jsondata=jsondata;
         }
 
 		private Action<Cell> UpdateQuest(dynamic savedata, SaveFile saveFile)
