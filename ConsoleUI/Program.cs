@@ -1,6 +1,6 @@
-﻿// See https://aka.ms/new-console-template for more information
-using OblivionSaveReader;
-using OblivionSaveReader.web;
+﻿using OblivionSaveReader;
+
+//Turns a save file into a json text doc.
 
 Task? currentUpload = null;
 HttpClient client = new HttpClient();
@@ -23,7 +23,8 @@ oblivionSaveUploader = new ProgressUploader("progress upload url", myShareKey, m
 
 SaveFile saveFile = await ProgressUploader.LoadSaveFile(saveFilePath);
 var progressFile = progressWriter.CreateUserProgressFile(saveFile);
-await oblivionSaveUploader.UploadSave(progressFile);
+var progressAsString = System.Text.Json.JsonSerializer.Serialize(progressFile);
+File.WriteAllText("savedata.save", progressAsString, new System.Text.UTF8Encoding(false));
 
 
 
