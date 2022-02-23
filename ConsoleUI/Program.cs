@@ -13,7 +13,7 @@ string myShareCode = "myShareCode";
 string myShareKey = "myShareKey";
 if(args.Length < 1)
 {
-    //return;
+    return;
 }
 
 System.Diagnostics.Trace.Listeners.Add(new System.Diagnostics.ConsoleTraceListener());
@@ -21,7 +21,7 @@ System.Diagnostics.Trace.Listeners.Add(new System.Diagnostics.ConsoleTraceListen
 progressWriter = await ProgressWriter.Create(testUrl, false);
 oblivionSaveUploader = new ProgressUploader("progress upload url", myShareKey, myShareCode);
 
-SaveFile saveFile = await ProgressUploader.LoadSaveFile(saveFilePath);
+SaveFile saveFile = await ProgressUploader.LoadSaveFile(args[0]);
 var progressFile = progressWriter.CreateUserProgressFile(saveFile);
 var progressAsString = System.Text.Json.JsonSerializer.Serialize(progressFile);
 File.WriteAllText("savedata.save", progressAsString, new System.Text.UTF8Encoding(false));

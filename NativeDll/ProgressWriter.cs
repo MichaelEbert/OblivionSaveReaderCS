@@ -190,11 +190,11 @@ namespace OblivionSaveReader
 				{
 					if (record.subRecord?.topicSaidOnce)
 						{
-						savedata.misc[cell.id] = true;
+						savedata.fame[cell.id] = true;
 						return;
 					}
 				}
-				savedata.misc[cell.id] = false;
+				savedata.fame[cell.id] = false;
 			};
 		}
 
@@ -206,7 +206,7 @@ namespace OblivionSaveReader
 				if (record?.subRecord is RecordCreature rc)
 				{
 					IEnumerable<int> spellFormIds = rc.spellIds.Select(i => (i >= 0 && i < saveFile.formIds.Length) ? saveFile.formIds[i] : i);
-					if (spellFormIds.Contains(cell.formIdInt.Value))
+					if (cell.formIdInt != null && spellFormIds.Contains(cell.formIdInt.Value))
 					{
 						savedata.misc[cell.id] = true;
 					}
@@ -222,13 +222,16 @@ namespace OblivionSaveReader
 		{
 			return (cell) =>
 			{
-				var fameLevel = saveFile.globals[(int)cell.globalIndex]?.value;
-				if (fameLevel > 0)
+				if (cell.globalIndex != null)
 				{
+					var fameLevel = saveFile.globals[(int)cell.globalIndex]?.value;
+					if (fameLevel > 0)
+					{
 						savedata.misc[cell.id] = true;
 						return;
+					}
+					savedata.misc[cell.id] = false;
 				}
-				savedata.misc[cell.id] = false;
 			};
 		}
 
@@ -246,7 +249,7 @@ namespace OblivionSaveReader
 			}
 			foreach (var child in miscHive.elements)
             {
-				switch (child.name.ToLower())
+				switch (child.name?.ToLower())
 				{
 					case "horses":
 						ObliviondataMjs.runOnTree(child, UpdateHorse(savedata, saveFile));
@@ -349,6 +352,7 @@ namespace OblivionSaveReader
 					updateFunction = UpdateBook(savedata, saveFile);
 					break;
 				case "misc":
+				case "fame":
 					RunMiscUpdates(hive, savedata, saveFile);
 					return;
 				default:
