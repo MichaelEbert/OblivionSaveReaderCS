@@ -33,6 +33,7 @@
             this.ShareCodeLabel = new System.Windows.Forms.Label();
             this.shareCodeTooltip = new System.Windows.Forms.ToolTip(this.components);
             this.shareKeyLabel = new System.Windows.Forms.Label();
+            this.forceRefreshCheckbox = new System.Windows.Forms.CheckBox();
             this.shareCodeTextbox = new System.Windows.Forms.TextBox();
             this.shareKeyTextbox = new System.Windows.Forms.TextBox();
             this.loggingTextBox = new System.Windows.Forms.TextBox();
@@ -47,7 +48,6 @@
             this.uploadUrlLabel = new System.Windows.Forms.Label();
             this.jsonDataUrlTextbox = new System.Windows.Forms.TextBox();
             this.uploadUrlTextbox = new System.Windows.Forms.TextBox();
-            this.forceRefreshCheckbox = new System.Windows.Forms.CheckBox();
             this.tabControl1.SuspendLayout();
             this.tabPageBasic.SuspendLayout();
             this.tabPageAdvanced.SuspendLayout();
@@ -84,12 +84,24 @@
             this.shareCodeTooltip.SetToolTip(this.shareKeyLabel, "DO NOT SHARE WITH OTHERS. On website, in console. enter \"settings.shareKey\" and p" +
         "aste the result in this box (minus the start and end quotes).");
             // 
+            // forceRefreshCheckbox
+            // 
+            this.forceRefreshCheckbox.AutoSize = true;
+            this.forceRefreshCheckbox.Location = new System.Drawing.Point(11, 142);
+            this.forceRefreshCheckbox.Name = "forceRefreshCheckbox";
+            this.forceRefreshCheckbox.Size = new System.Drawing.Size(97, 19);
+            this.forceRefreshCheckbox.TabIndex = 7;
+            this.forceRefreshCheckbox.Text = "Force Refresh";
+            this.shareCodeTooltip.SetToolTip(this.forceRefreshCheckbox, "Force redownload of json files instead of using cached ones");
+            this.forceRefreshCheckbox.UseVisualStyleBackColor = true;
+            // 
             // shareCodeTextbox
             // 
             this.shareCodeTextbox.Location = new System.Drawing.Point(78, 7);
             this.shareCodeTextbox.Name = "shareCodeTextbox";
             this.shareCodeTextbox.Size = new System.Drawing.Size(100, 23);
             this.shareCodeTextbox.TabIndex = 2;
+            this.shareCodeTextbox.TextChanged += new System.EventHandler(this.shareCodeTextbox_TextChanged);
             // 
             // shareKeyTextbox
             // 
@@ -100,6 +112,7 @@
             this.shareKeyTextbox.Size = new System.Drawing.Size(423, 23);
             this.shareKeyTextbox.TabIndex = 4;
             this.shareKeyTextbox.UseSystemPasswordChar = true;
+            this.shareKeyTextbox.TextChanged += new System.EventHandler(this.shareKeyTextbox_TextChanged);
             // 
             // loggingTextBox
             // 
@@ -152,7 +165,7 @@
             this.tabPageBasic.Location = new System.Drawing.Point(4, 24);
             this.tabPageBasic.Name = "tabPageBasic";
             this.tabPageBasic.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageBasic.Size = new System.Drawing.Size(507, 148);
+            this.tabPageBasic.Size = new System.Drawing.Size(507, 167);
             this.tabPageBasic.TabIndex = 0;
             this.tabPageBasic.Text = "Options";
             this.tabPageBasic.UseVisualStyleBackColor = true;
@@ -228,17 +241,6 @@
             this.uploadUrlTextbox.Name = "uploadUrlTextbox";
             this.uploadUrlTextbox.Size = new System.Drawing.Size(407, 23);
             this.uploadUrlTextbox.TabIndex = 0;
-            // 
-            // forceRefreshCheckbox
-            // 
-            this.forceRefreshCheckbox.AutoSize = true;
-            this.forceRefreshCheckbox.Location = new System.Drawing.Point(11, 142);
-            this.forceRefreshCheckbox.Name = "forceRefreshCheckbox";
-            this.forceRefreshCheckbox.Size = new System.Drawing.Size(97, 19);
-            this.forceRefreshCheckbox.TabIndex = 7;
-            this.forceRefreshCheckbox.Text = "Force Refresh";
-            this.shareCodeTooltip.SetToolTip(this.forceRefreshCheckbox, "Force redownload of json files instead of using cached ones");
-            this.forceRefreshCheckbox.UseVisualStyleBackColor = true;
             // 
             // OblivionSaveUploader
             // 

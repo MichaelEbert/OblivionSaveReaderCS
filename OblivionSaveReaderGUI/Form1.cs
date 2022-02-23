@@ -9,7 +9,7 @@ namespace OblivionSaveReaderGUI
         private ProgressWriter? progressWriter;
         private ProgressUploader? progressUploader;
         private Task? currentUpload = null;
-
+        bool settingsChanged = false;
         public OblivionSaveUploader()
         {
             InitializeComponent();
@@ -21,7 +21,8 @@ namespace OblivionSaveReaderGUI
             MyTraceListener listener = new MyTraceListener(loggingTextBox);
             Trace.Listeners.Add(listener);
 
-
+            shareCodeTextbox.Text = Properties.Settings.Default.ShareCode;
+            shareKeyTextbox.Text = Properties.Settings.Default.ShareKey;
         }
 
         private async void startButton_Click(object sender, EventArgs e)
@@ -30,6 +31,14 @@ namespace OblivionSaveReaderGUI
             {
                 loggingTextBox.AppendText("Invalid share code/key"+Environment.NewLine);
                 return;
+            }
+
+            if (settingsChanged)
+            {
+                settingsChanged = false;
+                Properties.Settings.Default.ShareCode = shareCodeTextbox.Text;
+                Properties.Settings.Default.ShareKey = shareKeyTextbox.Text;
+                Properties.Settings.Default.Save();
             }
 
             progressWriter = await ProgressWriter.Create(jsonDataUrlTextbox.Text, forceRefreshCheckbox.Checked);
@@ -65,6 +74,18 @@ namespace OblivionSaveReaderGUI
             });
             Trace.WriteLine("Watching directory " + saveWatcher.WatchPath);
             saveWatcher.Start();
+        }
+
+        
+
+        private void shareCodeTextbox_TextChanged(object sender, EventArgs e)
+        {
+            settingsChanged = true;
+        }
+
+        private void shareKeyTextbox_TextChanged(object sender, EventArgs e)
+        {
+            settingsChanged = true;
         }
     }
 }
