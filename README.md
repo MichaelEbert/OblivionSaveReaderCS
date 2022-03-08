@@ -1,6 +1,6 @@
 # OblivionSaveReaderCS
 Oblivion save reader in c#. Reads the last oblivion save in a folder and uploads the progress of it to be visible in the [interactive Oblivion Progress Tracker](https://michaelebert.github.io/OblivionProgressTracker/index.html)
-#To Use (1-time,local):
+# To Use (1-time,local):
 1. Download the (dotnet 6 redistributable)[https://dotnet.microsoft.com/en-us/download/dotnet/6.0]
 2. Find the save you want to see the progress of.
 3. Drag it on to ConsoleUI.exe. It will create a file called `savedata.save`
@@ -9,7 +9,7 @@ Oblivion save reader in c#. Reads the last oblivion save in a folder and uploads
 6. Find the `savedata.save` file and select it
 7. progress should show.
 
-#To Use (continuous upload)
+# To Use (continuous upload)
 1. Download the (dotnet 6 redistributable)[https://dotnet.microsoft.com/en-us/download/dotnet/6.0]
 2. Download release and unzip.
 3. Open app.
