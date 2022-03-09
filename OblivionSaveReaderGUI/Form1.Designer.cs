@@ -71,7 +71,7 @@
             this.ShareCodeLabel.Size = new System.Drawing.Size(67, 15);
             this.ShareCodeLabel.TabIndex = 1;
             this.ShareCodeLabel.Text = "Share Code";
-            this.shareCodeTooltip.SetToolTip(this.ShareCodeLabel, "6-character share code, shown on the website");
+            this.shareCodeTooltip.SetToolTip(this.ShareCodeLabel, global::OblivionSaveReaderGUI.Properties.Resources.ShareCodeTooltip);
             // 
             // shareKeyLabel
             // 
@@ -81,13 +81,12 @@
             this.shareKeyLabel.Size = new System.Drawing.Size(58, 15);
             this.shareKeyLabel.TabIndex = 3;
             this.shareKeyLabel.Text = "Share Key";
-            this.shareCodeTooltip.SetToolTip(this.shareKeyLabel, "DO NOT SHARE WITH OTHERS. On website, in console. enter \"settings.shareKey\" and p" +
-        "aste the result in this box (minus the start and end quotes).");
+            this.shareCodeTooltip.SetToolTip(this.shareKeyLabel, global::OblivionSaveReaderGUI.Properties.Resources.ShareKeyTooltip);
             // 
             // forceRefreshCheckbox
             // 
             this.forceRefreshCheckbox.AutoSize = true;
-            this.forceRefreshCheckbox.Location = new System.Drawing.Point(11, 142);
+            this.forceRefreshCheckbox.Location = new System.Drawing.Point(9, 103);
             this.forceRefreshCheckbox.Name = "forceRefreshCheckbox";
             this.forceRefreshCheckbox.Size = new System.Drawing.Size(97, 19);
             this.forceRefreshCheckbox.TabIndex = 7;
@@ -101,7 +100,7 @@
             this.shareCodeTextbox.Name = "shareCodeTextbox";
             this.shareCodeTextbox.Size = new System.Drawing.Size(100, 23);
             this.shareCodeTextbox.TabIndex = 2;
-            this.shareCodeTooltip.SetToolTip(this.shareCodeTextbox, "6-character share code, shown on the website");
+            this.shareCodeTooltip.SetToolTip(this.shareCodeTextbox, global::OblivionSaveReaderGUI.Properties.Resources.ShareCodeTooltip);
             this.shareCodeTextbox.TextChanged += new System.EventHandler(this.shareCodeTextbox_TextChanged);
             // 
             // shareKeyTextbox
@@ -110,25 +109,26 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.shareKeyTextbox.Location = new System.Drawing.Point(78, 43);
             this.shareKeyTextbox.Name = "shareKeyTextbox";
-            this.shareKeyTextbox.Size = new System.Drawing.Size(423, 23);
+            this.shareKeyTextbox.Size = new System.Drawing.Size(333, 23);
             this.shareKeyTextbox.TabIndex = 4;
             this.shareKeyTextbox.UseSystemPasswordChar = true;
             this.shareKeyTextbox.TextChanged += new System.EventHandler(this.shareKeyTextbox_TextChanged);
             // 
             // loggingTextBox
             // 
-            this.loggingTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            this.loggingTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.loggingTextBox.Location = new System.Drawing.Point(16, 292);
+            this.loggingTextBox.Location = new System.Drawing.Point(16, 249);
             this.loggingTextBox.Multiline = true;
             this.loggingTextBox.Name = "loggingTextBox";
             this.loggingTextBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.loggingTextBox.Size = new System.Drawing.Size(515, 103);
+            this.loggingTextBox.Size = new System.Drawing.Size(425, 107);
             this.loggingTextBox.TabIndex = 5;
             // 
             // startButton
             // 
-            this.startButton.Location = new System.Drawing.Point(12, 243);
+            this.startButton.Location = new System.Drawing.Point(12, 205);
             this.startButton.Name = "startButton";
             this.startButton.Size = new System.Drawing.Size(75, 23);
             this.startButton.TabIndex = 6;
@@ -138,9 +138,8 @@
             // 
             // logLabel
             // 
-            this.logLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.logLabel.AutoSize = true;
-            this.logLabel.Location = new System.Drawing.Point(16, 269);
+            this.logLabel.Location = new System.Drawing.Point(16, 231);
             this.logLabel.Name = "logLabel";
             this.logLabel.Size = new System.Drawing.Size(32, 15);
             this.logLabel.TabIndex = 7;
@@ -155,7 +154,7 @@
             this.tabControl1.Location = new System.Drawing.Point(12, 42);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(515, 195);
+            this.tabControl1.Size = new System.Drawing.Size(425, 157);
             this.tabControl1.TabIndex = 9;
             // 
             // tabPageBasic
@@ -167,7 +166,7 @@
             this.tabPageBasic.Location = new System.Drawing.Point(4, 24);
             this.tabPageBasic.Name = "tabPageBasic";
             this.tabPageBasic.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageBasic.Size = new System.Drawing.Size(507, 167);
+            this.tabPageBasic.Size = new System.Drawing.Size(417, 129);
             this.tabPageBasic.TabIndex = 0;
             this.tabPageBasic.Text = "Options";
             this.tabPageBasic.UseVisualStyleBackColor = true;
@@ -184,7 +183,7 @@
             this.tabPageAdvanced.Location = new System.Drawing.Point(4, 24);
             this.tabPageAdvanced.Name = "tabPageAdvanced";
             this.tabPageAdvanced.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageAdvanced.Size = new System.Drawing.Size(507, 167);
+            this.tabPageAdvanced.Size = new System.Drawing.Size(499, 129);
             this.tabPageAdvanced.TabIndex = 1;
             this.tabPageAdvanced.Text = "Advanced";
             this.tabPageAdvanced.UseVisualStyleBackColor = true;
@@ -193,16 +192,16 @@
             // 
             this.saveFileDirectoryTextbox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.saveFileDirectoryTextbox.Location = new System.Drawing.Point(118, 100);
+            this.saveFileDirectoryTextbox.Location = new System.Drawing.Point(112, 64);
             this.saveFileDirectoryTextbox.Name = "saveFileDirectoryTextbox";
             this.saveFileDirectoryTextbox.PlaceholderText = "Leave blank for auto detect";
-            this.saveFileDirectoryTextbox.Size = new System.Drawing.Size(383, 23);
+            this.saveFileDirectoryTextbox.Size = new System.Drawing.Size(381, 23);
             this.saveFileDirectoryTextbox.TabIndex = 5;
             // 
             // saveFilePathLabel
             // 
             this.saveFilePathLabel.AutoSize = true;
-            this.saveFilePathLabel.Location = new System.Drawing.Point(12, 108);
+            this.saveFilePathLabel.Location = new System.Drawing.Point(3, 67);
             this.saveFilePathLabel.Name = "saveFilePathLabel";
             this.saveFilePathLabel.Size = new System.Drawing.Size(100, 15);
             this.saveFilePathLabel.TabIndex = 4;
@@ -211,7 +210,7 @@
             // jsonDataUrlLabel
             // 
             this.jsonDataUrlLabel.AutoSize = true;
-            this.jsonDataUrlLabel.Location = new System.Drawing.Point(13, 71);
+            this.jsonDataUrlLabel.Location = new System.Drawing.Point(3, 38);
             this.jsonDataUrlLabel.Name = "jsonDataUrlLabel";
             this.jsonDataUrlLabel.Size = new System.Drawing.Size(80, 15);
             this.jsonDataUrlLabel.TabIndex = 3;
@@ -220,7 +219,7 @@
             // uploadUrlLabel
             // 
             this.uploadUrlLabel.AutoSize = true;
-            this.uploadUrlLabel.Location = new System.Drawing.Point(11, 29);
+            this.uploadUrlLabel.Location = new System.Drawing.Point(3, 9);
             this.uploadUrlLabel.Name = "uploadUrlLabel";
             this.uploadUrlLabel.Size = new System.Drawing.Size(69, 15);
             this.uploadUrlLabel.TabIndex = 2;
@@ -230,25 +229,25 @@
             // 
             this.jsonDataUrlTextbox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.jsonDataUrlTextbox.Location = new System.Drawing.Point(94, 67);
+            this.jsonDataUrlTextbox.Location = new System.Drawing.Point(94, 35);
             this.jsonDataUrlTextbox.Name = "jsonDataUrlTextbox";
-            this.jsonDataUrlTextbox.Size = new System.Drawing.Size(407, 23);
+            this.jsonDataUrlTextbox.Size = new System.Drawing.Size(399, 23);
             this.jsonDataUrlTextbox.TabIndex = 1;
             // 
             // uploadUrlTextbox
             // 
             this.uploadUrlTextbox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.uploadUrlTextbox.Location = new System.Drawing.Point(94, 25);
+            this.uploadUrlTextbox.Location = new System.Drawing.Point(94, 6);
             this.uploadUrlTextbox.Name = "uploadUrlTextbox";
-            this.uploadUrlTextbox.Size = new System.Drawing.Size(407, 23);
+            this.uploadUrlTextbox.Size = new System.Drawing.Size(399, 23);
             this.uploadUrlTextbox.TabIndex = 0;
             // 
             // OblivionSaveUploader
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(543, 407);
+            this.ClientSize = new System.Drawing.Size(453, 368);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.startButton);
             this.Controls.Add(this.logLabel);

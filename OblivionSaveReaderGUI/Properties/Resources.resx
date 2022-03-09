@@ -117,4 +117,10 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="ShareCodeTooltip" xml:space="preserve">
+    <value>6-character share code, shown on the website. Leave blank to generate a new one.</value>
+  </data>
+  <data name="ShareKeyTooltip" xml:space="preserve">
+    <value>DO NOT SHARE WITH OTHERS. On website, in console. enter "settings.shareKey" and paste the result in this box (minus the start and end quotes).</value>
+  </data>
 </root>

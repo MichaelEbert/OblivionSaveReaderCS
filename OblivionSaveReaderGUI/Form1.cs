@@ -1,5 +1,6 @@
 using OblivionSaveReader;
 using System.Diagnostics;
+using System.Resources;
 
 namespace OblivionSaveReaderGUI
 {
@@ -9,7 +10,8 @@ namespace OblivionSaveReaderGUI
         private ProgressWriter? progressWriter;
         private ProgressUploader? progressUploader;
         private Task? currentUpload = null;
-        bool settingsChanged = false;
+        private bool settingsChanged = false;
+
         public OblivionSaveUploader()
         {
             InitializeComponent();

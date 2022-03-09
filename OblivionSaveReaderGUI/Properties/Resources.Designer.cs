@@ -59,5 +59,23 @@ namespace OblivionSaveReaderGUI.Properties {
                 resourceCulture = value;
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 6-character share code, shown on the website. Leave blank to generate a new one..
+        /// </summary>
+        internal static string ShareCodeTooltip {
+            get {
+                return ResourceManager.GetString("ShareCodeTooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to DO NOT SHARE WITH OTHERS. On website, in console. enter &quot;settings.shareKey&quot; and paste the result in this box (minus the start and end quotes)..
+        /// </summary>
+        internal static string ShareKeyTooltip {
+            get {
+                return ResourceManager.GetString("ShareKeyTooltip", resourceCulture);
+            }
+        }
     }
 }
