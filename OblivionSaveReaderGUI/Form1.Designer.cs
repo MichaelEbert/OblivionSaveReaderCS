@@ -101,6 +101,7 @@
             this.shareCodeTextbox.Name = "shareCodeTextbox";
             this.shareCodeTextbox.Size = new System.Drawing.Size(100, 23);
             this.shareCodeTextbox.TabIndex = 2;
+            this.shareCodeTooltip.SetToolTip(this.shareCodeTextbox, "6-character share code, shown on the website");
             this.shareCodeTextbox.TextChanged += new System.EventHandler(this.shareCodeTextbox_TextChanged);
             // 
             // shareKeyTextbox

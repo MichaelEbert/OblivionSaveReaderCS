@@ -27,12 +27,6 @@ namespace OblivionSaveReaderGUI
 
         private async void startButton_Click(object sender, EventArgs e)
         {
-            if(shareCodeTextbox.Text == "" || shareKeyTextbox.Text == "")
-            {
-                loggingTextBox.AppendText("Invalid share code/key"+Environment.NewLine);
-                return;
-            }
-
             if (settingsChanged)
             {
                 settingsChanged = false;
@@ -42,7 +36,15 @@ namespace OblivionSaveReaderGUI
             }
 
             progressWriter = await ProgressWriter.Create(jsonDataUrlTextbox.Text, forceRefreshCheckbox.Checked);
-            progressUploader = new ProgressUploader(uploadUrlTextbox.Text, shareCodeTextbox.Text, shareKeyTextbox.Text);
+            if(shareKeyTextbox.Text.Length == 0)
+            {
+                progressUploader = new ProgressUploader(uploadUrlTextbox.Text);
+            }
+            else
+            {
+                progressUploader = new ProgressUploader(uploadUrlTextbox.Text, shareCodeTextbox.Text, shareKeyTextbox.Text);
+            }
+            
             
             if(saveWatcher != null)
             {
@@ -56,7 +58,12 @@ namespace OblivionSaveReaderGUI
                     {
                         var saveFile = await ProgressUploader.LoadSaveFile(filename);
                         var progressFile = progressWriter.CreateUserProgressFile(saveFile);
-                        await progressUploader.UploadSave(progressFile);
+                        var success = await progressUploader.UploadSave(progressFile);
+                        if(success && progressUploader.ShareCode != shareCodeTextbox.Text)
+                        {
+                            shareCodeTextbox.Text = progressUploader.ShareCode;
+                            shareKeyTextbox.Text = progressUploader.ShareKey;
+                        }
                     }).ContinueWith(task =>
                     {
                         if (task.IsFaulted)

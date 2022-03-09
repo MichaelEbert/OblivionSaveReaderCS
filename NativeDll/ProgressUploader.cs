@@ -14,9 +14,15 @@ namespace OblivionSaveReader
         Task? currentUpload = null;
         static readonly HttpClient httpClient = new HttpClient();
 
-        public string ShareCode { get; set; }
+        public string? ShareCode { get; set; }
         public string ShareKey { get; set; }
         public string PostUrl { get; set; }
+
+        public ProgressUploader(string postUrl)
+        {
+            this.PostUrl = postUrl;
+            this.ShareKey = GenerateShareKey();
+        }
 
         public ProgressUploader(string postUrl, string shareCode, string shareKey)
         {
@@ -54,24 +60,42 @@ namespace OblivionSaveReader
         public async Task<bool> UploadSave(DObject progressFile)
         {
             var saveData = System.Text.Json.JsonSerializer.Serialize(progressFile);
+            Dictionary<string, string> payload;
             System.Diagnostics.Trace.WriteLine("Uploading file");
-            var payload = new Dictionary<string, string>
+            if (ShareCode != null)
+            {
+                payload = new Dictionary<string, string>
                     {
                         { "saveData", saveData},
                         { "url", ShareCode },
                         { "key", ShareKey }
                     };
-
-            HttpContent content = JsonContent.Create(payload);
-            var resp = await httpClient.PostAsync(PostUrl, content);
-            if (resp.IsSuccessStatusCode)
-            {
-                System.Diagnostics.Trace.WriteLine("File uploaded.");
             }
             else
             {
-                var respError = await resp.Content.ReadAsStringAsync();
-                System.Diagnostics.Trace.WriteLine("Upload failed with " + respError);
+                payload = new Dictionary<string, string>
+                    {
+                        { "saveData", saveData},
+                        { "key", ShareKey }
+                    };
+            }
+
+            HttpContent content = JsonContent.Create(payload);
+            var resp = await httpClient.PostAsync(PostUrl, content);
+            var respContent = await resp.Content.ReadAsStringAsync();
+            if (resp.IsSuccessStatusCode)
+            {
+                System.Diagnostics.Trace.WriteLine("File uploaded.");
+                if (respContent != null && respContent.Length > 0)
+                {
+                    System.Diagnostics.Trace.WriteLine("new share code: " + respContent);
+                    //change sharecode
+                    ShareCode = respContent;
+                }
+            }
+            else
+            {
+                System.Diagnostics.Trace.WriteLine("Upload failed with " + respContent);
             }
             return resp.IsSuccessStatusCode;
         }
@@ -101,6 +125,14 @@ namespace OblivionSaveReader
                 System.Diagnostics.Trace.WriteLine("Skipping upload, existing one already in progress.");
             }
             return;
+        }
+
+        public static string GenerateShareKey()
+        {
+            Random rand = new Random();
+            byte[] bytes = new byte[64];
+            rand.NextBytes(bytes);
+            return Convert.ToBase64String(bytes);
         }
     }
 }
