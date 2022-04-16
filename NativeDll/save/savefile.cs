@@ -3,19 +3,19 @@ public class SaveFile {
     public string fileId = "TES4SAVEGAME";
     public int majorVersion;
     public int minorVersion;
-    DateTime exeTime;
+    public DateTime exeTime;
 
     // Save header
     public int headerVersion;
     public int saveHeaderSize;
     public int saveNum;
-    string pcName;
+    public string pcName;
     public int pcLevel;
-    string pcLocation;
+    public string pcLocation;
     public float gameDays;
 
     public int gameTicks;
-    DateTime gameTime;
+    public DateTime gameTime;
     public int screenshotSize;
     public int screenshotWidth;
     public int screenshotHeight;

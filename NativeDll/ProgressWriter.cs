@@ -317,11 +317,11 @@ namespace OblivionSaveReader
 				{
 					if ((record.flags & 0x44000000) == 0x44000000)
 					{
-						savedata["nirnroot"][cell.id] = true;
+						savedata.nirnroot[cell.id] = true;
 						return;
 					}
 				}
-				savedata["nirnroot"][cell.id] = false;
+				savedata.nirnroot[cell.id] = false;
 			};
 		}
 

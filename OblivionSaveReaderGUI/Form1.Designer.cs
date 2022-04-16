@@ -183,7 +183,7 @@
             this.tabPageAdvanced.Location = new System.Drawing.Point(4, 24);
             this.tabPageAdvanced.Name = "tabPageAdvanced";
             this.tabPageAdvanced.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageAdvanced.Size = new System.Drawing.Size(499, 129);
+            this.tabPageAdvanced.Size = new System.Drawing.Size(417, 129);
             this.tabPageAdvanced.TabIndex = 1;
             this.tabPageAdvanced.Text = "Advanced";
             this.tabPageAdvanced.UseVisualStyleBackColor = true;
@@ -195,7 +195,7 @@
             this.saveFileDirectoryTextbox.Location = new System.Drawing.Point(112, 64);
             this.saveFileDirectoryTextbox.Name = "saveFileDirectoryTextbox";
             this.saveFileDirectoryTextbox.PlaceholderText = "Leave blank for auto detect";
-            this.saveFileDirectoryTextbox.Size = new System.Drawing.Size(381, 23);
+            this.saveFileDirectoryTextbox.Size = new System.Drawing.Size(299, 23);
             this.saveFileDirectoryTextbox.TabIndex = 5;
             // 
             // saveFilePathLabel
@@ -231,7 +231,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.jsonDataUrlTextbox.Location = new System.Drawing.Point(94, 35);
             this.jsonDataUrlTextbox.Name = "jsonDataUrlTextbox";
-            this.jsonDataUrlTextbox.Size = new System.Drawing.Size(399, 23);
+            this.jsonDataUrlTextbox.Size = new System.Drawing.Size(317, 23);
             this.jsonDataUrlTextbox.TabIndex = 1;
             // 
             // uploadUrlTextbox
@@ -240,7 +240,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.uploadUrlTextbox.Location = new System.Drawing.Point(94, 6);
             this.uploadUrlTextbox.Name = "uploadUrlTextbox";
-            this.uploadUrlTextbox.Size = new System.Drawing.Size(399, 23);
+            this.uploadUrlTextbox.Size = new System.Drawing.Size(317, 23);
             this.uploadUrlTextbox.TabIndex = 0;
             // 
             // OblivionSaveUploader

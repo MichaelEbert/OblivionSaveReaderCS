@@ -96,7 +96,13 @@ namespace OblivionSaveReader.web
         }
         public override bool TryGetMember(GetMemberBinder binder, out object? result)
         {
-            return data.TryGetValue(binder.Name, out result);
+            var maybe = data.TryGetValue(binder.Name, out result);
+            if (!maybe)
+            {
+                //so we can debug this
+                return false;
+            }
+            return true;
         }
 
         public override bool TrySetMember(SetMemberBinder binder, object? value)

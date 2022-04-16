@@ -4,3 +4,5 @@ ConsoleUI/bin/*
 */bin/*
 */obj/*
 .vs/*
+/NativeDll/save/replace.txt
+*.user
