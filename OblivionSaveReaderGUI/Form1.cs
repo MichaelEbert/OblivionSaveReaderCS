@@ -1,4 +1,5 @@
 using OblivionSaveReader;
+using System.Configuration;
 using System.Diagnostics;
 using System.Resources;
 
@@ -16,12 +17,25 @@ namespace OblivionSaveReaderGUI
         {
             InitializeComponent();
 
+
             jsonDataUrlTextbox.Text = "https://michaelebert.github.io/OblivionProgressTracker/data/";
             uploadUrlTextbox.Text = "https://ratskip.azurewebsites.net/share";
 
 
             MyTraceListener listener = new MyTraceListener(loggingTextBox);
             Trace.Listeners.Add(listener);
+
+            //upgrade stuff
+            System.Reflection.Assembly a = System.Reflection.Assembly.GetExecutingAssembly();
+            string? currentAppVersion = a.GetName().Version?.ToString();
+            if(currentAppVersion != null)
+            {
+                if (Properties.Settings.Default.ApplicationVersion != currentAppVersion)
+                {
+                    Properties.Settings.Default.Upgrade();
+                    Properties.Settings.Default.ApplicationVersion = currentAppVersion;
+                }
+            }
 
             shareCodeTextbox.Text = Properties.Settings.Default.ShareCode;
             shareKeyTextbox.Text = Properties.Settings.Default.ShareKey;

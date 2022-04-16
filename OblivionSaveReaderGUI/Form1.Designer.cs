@@ -98,6 +98,7 @@
             // 
             this.shareCodeTextbox.Location = new System.Drawing.Point(78, 7);
             this.shareCodeTextbox.Name = "shareCodeTextbox";
+            this.shareCodeTextbox.PlaceholderText = "Auto generate";
             this.shareCodeTextbox.Size = new System.Drawing.Size(100, 23);
             this.shareCodeTextbox.TabIndex = 2;
             this.shareCodeTooltip.SetToolTip(this.shareCodeTextbox, global::OblivionSaveReaderGUI.Properties.Resources.ShareCodeTooltip);
@@ -109,6 +110,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.shareKeyTextbox.Location = new System.Drawing.Point(78, 43);
             this.shareKeyTextbox.Name = "shareKeyTextbox";
+            this.shareKeyTextbox.PlaceholderText = "Leave blank to auto generate";
             this.shareKeyTextbox.Size = new System.Drawing.Size(333, 23);
             this.shareKeyTextbox.TabIndex = 4;
             this.shareKeyTextbox.UseSystemPasswordChar = true;
