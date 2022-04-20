@@ -28,33 +28,18 @@ namespace OblivionSaveReaderGUI
             MyTraceListener listener = new MyTraceListener(loggingTextBox);
             Trace.Listeners.Add(listener);
 
-            //upgrade stuff
-            System.Reflection.Assembly a = System.Reflection.Assembly.GetExecutingAssembly();
-            string? currentAppVersion = a.GetName().Version?.ToString();
-            if(currentAppVersion != null)
+            if (String.IsNullOrEmpty(Properties.Settings.Default.ApplicationVersion))
             {
-                if (Properties.Settings.Default.ApplicationVersion != currentAppVersion)
-                {
-                    Properties.Settings.Default.Upgrade();
-                    Properties.Settings.Default.ApplicationVersion = currentAppVersion;
-                }
+                //try copy from prev version.
+                copyPreviousSettings();
             }
+            LoadSettings();
 
-            shareCodeTextbox.Text = Properties.Settings.Default.ShareCode;
-            shareKeyTextbox.Text = Properties.Settings.Default.ShareKey;
-            if(!string.IsNullOrEmpty(Properties.Settings.Default.SaveDirectory))
-            {
-                saveFileDirectoryTextbox.PlaceholderText = Properties.Settings.Default.SaveDirectory;
-            }
-            else
-            {
-                saveFileDirectoryTextbox.PlaceholderText = SaveWatcher.GetDefaultSaveLocation();
-            }
         }
 
         private async void startButton_Click(object sender, EventArgs e)
         {
-            saveSettings();
+            SaveSettings();
 
             progressWriter = await ProgressWriter.Create(jsonDataUrlTextbox.Text, forceRefreshCheckbox.Checked);
             if(shareKeyTextbox.Text.Length == 0)
@@ -89,7 +74,7 @@ namespace OblivionSaveReaderGUI
                                 shareCodeTextbox.Text = progressUploader.ShareCode;
                                 shareKeyTextbox.Text = progressUploader.ShareKey;
                                 settingsChanged = true;
-                                saveSettings();
+                                SaveSettings();
                             });
                         }
                     }).ContinueWith(task =>
@@ -114,7 +99,7 @@ namespace OblivionSaveReaderGUI
         /// <summary>
         /// If the settingsChanged flag has been set, save settings.
         /// </summary>
-        private void saveSettings()
+        private void SaveSettings()
         {
             if (settingsChanged)
             {
@@ -126,7 +111,72 @@ namespace OblivionSaveReaderGUI
             }
         }
 
-        
+        /// <summary>
+        /// Because we have a button to copy settings from prev version.
+        /// </summary>
+        private void LoadSettings()
+        {
+            //upgrade stuff
+            System.Reflection.Assembly a = System.Reflection.Assembly.GetExecutingAssembly();
+            string? currentAppVersion = a.GetName().Version?.ToString();
+            if (currentAppVersion != null)
+            {
+                if (Properties.Settings.Default.ApplicationVersion != currentAppVersion)
+                {
+                    Properties.Settings.Default.Upgrade();
+                    Properties.Settings.Default.ApplicationVersion = currentAppVersion;
+                }
+            }
+            shareCodeTextbox.Text = Properties.Settings.Default.ShareCode;
+            shareKeyTextbox.Text = Properties.Settings.Default.ShareKey;
+            if (!string.IsNullOrEmpty(Properties.Settings.Default.SaveDirectory))
+            {
+                saveFileDirectoryTextbox.PlaceholderText = Properties.Settings.Default.SaveDirectory;
+            }
+            else
+            {
+                saveFileDirectoryTextbox.PlaceholderText = SaveWatcher.GetDefaultSaveLocation();
+            }
+        }
+
+        /// <summary>
+        /// Because this assembly isn't signed, setting save location depends on path.
+        /// This method tries to find the last saved progress file and copy it to this app's path.
+        /// </summary>
+        private void copyPreviousSettings()
+        {
+            //put this whole thing in a try because its a bad hack
+            try
+            {
+                var mypath = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.PerUserRoamingAndLocal).FilePath;
+                //stored in {appname_hash}/{version}/config.exe, so we go up 2 levels to search all appnames.
+                var myFile = new FileInfo(mypath);
+                var searchDirectory = myFile?.Directory?.Parent.Parent;
+                var otherDirs = from dir in searchDirectory.GetDirectories()
+                                where dir.FullName != myFile.Directory.Parent.FullName
+                                orderby dir.LastWriteTimeUtc descending
+                                select dir;
+
+                foreach(var lastModifiedDir in otherDirs)
+                {
+                    var lastVersionDir = lastModifiedDir.GetDirectories().OrderByDescending(d => d.LastWriteTimeUtc).First();
+                    var prevConfigs = lastVersionDir.GetFiles("user.config");
+                    if (prevConfigs.Length > 0)
+                    {
+                        myFile.Directory.Create();
+                        File.Copy(prevConfigs[0].FullName, myFile.FullName, false);
+                        Trace.WriteLine("Previous settings copied from "+ prevConfigs[0].FullName);
+                        Properties.Settings.Default.Reload();
+                        LoadSettings();
+                        break;
+                    }
+                }
+                
+            }
+            catch {
+                Trace.WriteLine("Unable to copy previous settings.");
+            }
+        }
 
         private void shareCodeTextbox_TextChanged(object sender, EventArgs e)
         {
@@ -141,6 +191,11 @@ namespace OblivionSaveReaderGUI
         private void saveFileDirectoryTextbox_TextChanged(object sender, EventArgs e)
         {
             settingsChanged = true;
+        }
+
+        private void importSettingsButton_Click(object sender, EventArgs e)
+        {
+            copyPreviousSettings();
         }
     }
 }

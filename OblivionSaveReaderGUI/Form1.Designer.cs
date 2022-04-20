@@ -42,6 +42,7 @@
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPageBasic = new System.Windows.Forms.TabPage();
             this.tabPageAdvanced = new System.Windows.Forms.TabPage();
+            this.importSettingsButton = new System.Windows.Forms.Button();
             this.saveFileDirectoryTextbox = new System.Windows.Forms.TextBox();
             this.saveFilePathLabel = new System.Windows.Forms.Label();
             this.jsonDataUrlLabel = new System.Windows.Forms.Label();
@@ -175,6 +176,7 @@
             // 
             // tabPageAdvanced
             // 
+            this.tabPageAdvanced.Controls.Add(this.importSettingsButton);
             this.tabPageAdvanced.Controls.Add(this.forceRefreshCheckbox);
             this.tabPageAdvanced.Controls.Add(this.saveFileDirectoryTextbox);
             this.tabPageAdvanced.Controls.Add(this.saveFilePathLabel);
@@ -189,6 +191,16 @@
             this.tabPageAdvanced.TabIndex = 1;
             this.tabPageAdvanced.Text = "Advanced";
             this.tabPageAdvanced.UseVisualStyleBackColor = true;
+            // 
+            // importSettingsButton
+            // 
+            this.importSettingsButton.Location = new System.Drawing.Point(259, 97);
+            this.importSettingsButton.Name = "importSettingsButton";
+            this.importSettingsButton.Size = new System.Drawing.Size(120, 25);
+            this.importSettingsButton.TabIndex = 8;
+            this.importSettingsButton.Text = "Import Settings";
+            this.importSettingsButton.UseVisualStyleBackColor = true;
+            this.importSettingsButton.Click += new System.EventHandler(this.importSettingsButton_Click);
             // 
             // saveFileDirectoryTextbox
             // 
@@ -289,5 +301,6 @@
         private Label saveFilePathLabel;
         private Label jsonDataUrlLabel;
         private CheckBox forceRefreshCheckbox;
+        private Button importSettingsButton;
     }
 }
