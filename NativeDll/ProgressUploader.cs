@@ -88,7 +88,7 @@ namespace OblivionSaveReader
                 System.Diagnostics.Trace.WriteLine("File uploaded.");
                 if (respContent != null && respContent.Length > 0)
                 {
-                    System.Diagnostics.Trace.WriteLine("new share code: " + respContent);
+                    System.Diagnostics.Trace.WriteLine("share code: " + respContent);
                     //change sharecode
                     ShareCode = respContent;
                 }

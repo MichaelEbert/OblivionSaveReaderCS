@@ -84,10 +84,13 @@ namespace OblivionSaveReaderGUI
                         var success = await progressUploader.UploadSave(progressFile);
                         if (success && progressUploader.ShareCode != shareCodeTextbox.Text)
                         {
-                            shareCodeTextbox.Text = progressUploader.ShareCode;
-                            shareKeyTextbox.Text = progressUploader.ShareKey;
-                            settingsChanged = true;
-                            saveSettings();
+                            this.Invoke(() =>
+                            {
+                                shareCodeTextbox.Text = progressUploader.ShareCode;
+                                shareKeyTextbox.Text = progressUploader.ShareKey;
+                                settingsChanged = true;
+                                saveSettings();
+                            });
                         }
                     }).ContinueWith(task =>
                     {
