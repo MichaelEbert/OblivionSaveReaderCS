@@ -24,7 +24,8 @@ oblivionSaveUploader = new ProgressUploader("progress upload url", myShareKey, m
 SaveFile saveFile = await ProgressUploader.LoadSaveFile(args[0]);
 var progressFile = progressWriter.CreateUserProgressFile(saveFile);
 var progressAsString = System.Text.Json.JsonSerializer.Serialize(progressFile);
-File.WriteAllText(saveFile.pcName+".save", progressAsString, new System.Text.UTF8Encoding(false));
+var sanitisedName = saveFile.pcName.Replace(':', '_').Replace('"','_').Replace('\'','_').Replace('/','_').Replace('\\','_');
+File.WriteAllText(sanitisedName+".save", progressAsString, new System.Text.UTF8Encoding(false));
 
 
 
