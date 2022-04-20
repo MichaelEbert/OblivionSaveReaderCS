@@ -199,6 +199,7 @@
             this.saveFileDirectoryTextbox.PlaceholderText = "Leave blank for auto detect";
             this.saveFileDirectoryTextbox.Size = new System.Drawing.Size(299, 23);
             this.saveFileDirectoryTextbox.TabIndex = 5;
+            this.saveFileDirectoryTextbox.TextChanged += new System.EventHandler(this.saveFileDirectoryTextbox_TextChanged);
             // 
             // saveFilePathLabel
             // 

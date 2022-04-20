@@ -15,30 +15,36 @@ namespace OblivionSaveReader
 
         private Action<string> onFileChanged;
 
-        public SaveWatcher(string watchPath, Action<string> onFileChanged)
+        /// <summary>
+        /// Get default oblivion save file location.
+        /// </summary>
+        /// <returns></returns>
+        public static string GetDefaultSaveLocation()
         {
-            this.onFileChanged = onFileChanged;
-            this.WatchPath = watchPath;
-            watcher = new FileSystemWatcher(watchPath);
-            watcher.NotifyFilter = NotifyFilters.LastWrite | NotifyFilters.CreationTime;
-            watcher.Changed += OnUpdate;
-        }
-
-        //this is windows only. 
-        public SaveWatcher(Action<string> onFileChanged)
-        {
-            this.onFileChanged = onFileChanged;
-            //get documents path, then append save folder location.
             const string myGamesPath = "My Games\\Oblivion\\Saves";
             var path = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
-            WatchPath = Path.Combine(path, myGamesPath);
+            return Path.Combine(path, myGamesPath);
+        }
+
+        public SaveWatcher(string? watchPath, Action<string> onFileChanged)
+        {
+            if(String.IsNullOrEmpty(watchPath))
+            {
+                WatchPath = GetDefaultSaveLocation();
+            }
+            else
+            {
+                this.WatchPath = watchPath;
+            }
+
             if (!Directory.Exists(WatchPath))
             {
                 throw new DirectoryNotFoundException(WatchPath);
             }
+
+            this.onFileChanged = onFileChanged;
             watcher = new FileSystemWatcher(WatchPath);
             watcher.NotifyFilter = NotifyFilters.LastWrite | NotifyFilters.CreationTime;
-            //watcher.Created += OnUpdate;
             watcher.Changed += OnUpdate;
         }
 
