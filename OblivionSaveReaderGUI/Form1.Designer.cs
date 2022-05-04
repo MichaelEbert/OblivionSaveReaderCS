@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(OblivionSaveUploader));
             this.label1 = new System.Windows.Forms.Label();
             this.ShareCodeLabel = new System.Windows.Forms.Label();
             this.shareCodeTooltip = new System.Windows.Forms.ToolTip(this.components);
@@ -268,6 +269,7 @@
             this.Controls.Add(this.logLabel);
             this.Controls.Add(this.loggingTextBox);
             this.Controls.Add(this.label1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "OblivionSaveUploader";
             this.Text = "Oblivion Save Uploader";
             this.tabControl1.ResumeLayout(false);
