@@ -251,16 +251,16 @@ namespace OblivionSaveReader
             {
 				switch (child.name?.ToLower())
 				{
-					case "horses":
+					case "horses owned":
 						ObliviondataMjs.runOnTree(child, UpdateHorse(savedata, saveFile));
 						break;
-					case "houses":
+					case "houses owned":
 						ObliviondataMjs.runOnTree(child, UpdateHouse(savedata, saveFile));
 						break;
-					case "pilgrim's grace":
+					case "wayshrines":
 						ObliviondataMjs.runOnTree(child, UpdateWayshrine(savedata, saveFile));
 						break;
-					case "arena fights":
+					case "arena fight fame":
 						ObliviondataMjs.runOnTree(child, UpdateArena(savedata, saveFile));
 						break;
 					case "greater powers":
