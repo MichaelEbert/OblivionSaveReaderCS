@@ -52,6 +52,35 @@ namespace OblivionSaveReader
             return new SaveFile(bytes);
         }
 
+        private Dictionary<string, string> prevHiveData;
+
+        public async Task<bool> UploadSerializedData(string name, string serializedData)
+        {
+            Dictionary<string, string> payload;
+            System.Diagnostics.Trace.WriteLine("Uploading file");
+            if (ShareCode == null) { return false; }
+
+            payload = new Dictionary<string, string>
+                {
+                    { "saveData", serializedData},
+                    { "url", ShareCode },
+                    { "key", ShareKey }
+                };
+
+            HttpContent content = JsonContent.Create(payload);
+            var resp = await httpClient.PostAsync($"{PostUrl}/{ShareCode}/d/{name}", content);
+            var respContent = await resp.Content.ReadAsStringAsync();
+            if (resp.IsSuccessStatusCode)
+            {
+                System.Diagnostics.Trace.WriteLine($"{name} uploaded.");
+            }
+            else
+            {
+                System.Diagnostics.Trace.WriteLine("Upload failed with " + respContent);
+            }
+            return resp.IsSuccessStatusCode;
+        }
+
         /// <summary>
         /// Upload a save file. Only uploads 1 at a time.
         /// </summary>
@@ -59,45 +88,68 @@ namespace OblivionSaveReader
         /// <returns></returns>
         public async Task<bool> UploadSave(DObject progressFile)
         {
-            var saveData = System.Text.Json.JsonSerializer.Serialize(progressFile);
-            Dictionary<string, string> payload;
-            System.Diagnostics.Trace.WriteLine("Uploading file");
             if (ShareCode != null)
             {
-                payload = new Dictionary<string, string>
-                    {
-                        { "saveData", saveData},
-                        { "url", ShareCode },
-                        { "key", ShareKey }
-                    };
-            }
-            else
-            {
-                payload = new Dictionary<string, string>
-                    {
-                        { "saveData", saveData},
-                        { "key", ShareKey }
-                    };
-            }
-
-            HttpContent content = JsonContent.Create(payload);
-            var resp = await httpClient.PostAsync(PostUrl, content);
-            var respContent = await resp.Content.ReadAsStringAsync();
-            if (resp.IsSuccessStatusCode)
-            {
-                System.Diagnostics.Trace.WriteLine("File uploaded.");
-                if (respContent != null && respContent.Length > 0)
+                // upload parts
+                foreach (var key in progressFile.Keys)
                 {
-                    System.Diagnostics.Trace.WriteLine("share code: " + respContent);
-                    //change sharecode
-                    ShareCode = respContent;
+                    string newSerialized = System.Text.Json.JsonSerializer.Serialize(progressFile[key])
+                    if (prevHiveData.TryGetValue(key, out string? oldSerialized))
+                    {
+                        if (string.Equals(oldSerialized, newSerialized))
+                        {
+                            continue;
+                        }
+
+                    }
+                    prevHiveData[key] = newSerialized;
+                    UploadSerializedData(key, newSerialized);
                 }
+                return true;
             }
-            else
-            {
-                System.Diagnostics.Trace.WriteLine("Upload failed with " + respContent);
+            else {
+
+                var saveData = System.Text.Json.JsonSerializer.Serialize(progressFile);
+
+                Dictionary<string, string> payload;
+                System.Diagnostics.Trace.WriteLine("Uploading file");
+                if (ShareCode != null)
+                {
+                    payload = new Dictionary<string, string>
+                        {
+                            { "saveData", saveData},
+                            { "url", ShareCode },
+                            { "key", ShareKey }
+                        };
+                }
+                else
+                {
+                    payload = new Dictionary<string, string>
+                        {
+                            { "saveData", saveData},
+                            { "key", ShareKey }
+                        };
+                }
+
+                HttpContent content = JsonContent.Create(payload);
+                var resp = await httpClient.PostAsync(PostUrl, content);
+                var respContent = await resp.Content.ReadAsStringAsync();
+                if (resp.IsSuccessStatusCode)
+                {
+                    System.Diagnostics.Trace.WriteLine("File uploaded.");
+                    if (respContent != null && respContent.Length > 0)
+                    {
+                        System.Diagnostics.Trace.WriteLine("share code: " + respContent);
+                        //change sharecode
+                        ShareCode = respContent;
+                    }
+                }
+                else
+                {
+                    System.Diagnostics.Trace.WriteLine("Upload failed with " + respContent);
+                }
+                return resp.IsSuccessStatusCode;
             }
-            return resp.IsSuccessStatusCode;
         }
 
         public void OnFileChanged(string filepath, ProgressWriter writer)
