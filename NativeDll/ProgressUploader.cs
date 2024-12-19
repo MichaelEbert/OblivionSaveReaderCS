@@ -14,6 +14,8 @@ namespace OblivionSaveReader
         Task? currentUpload = null;
         static readonly HttpClient httpClient = new HttpClient();
 
+        private Dictionary<string, string> prevHiveData = new Dictionary<string, string>();
+
         public string? ShareCode { get; set; }
         public string ShareKey { get; set; }
         public string PostUrl { get; set; }
@@ -52,12 +54,10 @@ namespace OblivionSaveReader
             return new SaveFile(bytes);
         }
 
-        private Dictionary<string, string> prevHiveData;
-
         public async Task<bool> UploadSerializedData(string name, string serializedData)
         {
             Dictionary<string, string> payload;
-            System.Diagnostics.Trace.WriteLine("Uploading file");
+            System.Diagnostics.Trace.WriteLine($"Uploading {name}... ");
             if (ShareCode == null) { return false; }
 
             payload = new Dictionary<string, string>
@@ -72,11 +72,11 @@ namespace OblivionSaveReader
             var respContent = await resp.Content.ReadAsStringAsync();
             if (resp.IsSuccessStatusCode)
             {
-                System.Diagnostics.Trace.WriteLine($"{name} uploaded.");
+                System.Diagnostics.Trace.WriteLine($"Complete.");
             }
             else
             {
-                System.Diagnostics.Trace.WriteLine("Upload failed with " + respContent);
+                System.Diagnostics.Trace.WriteLine($"Upload failed with status {resp.StatusCode} and body {respContent}");
             }
             return resp.IsSuccessStatusCode;
         }
@@ -93,7 +93,11 @@ namespace OblivionSaveReader
                 // upload parts
                 foreach (var key in progressFile.Keys)
                 {
-                    string newSerialized = System.Text.Json.JsonSerializer.Serialize(progressFile[key])
+                    if (progressFile[key] is not DObject)
+                    {
+                        continue;
+                    }
+                    string newSerialized = System.Text.Json.JsonSerializer.Serialize(progressFile[key]);
                     if (prevHiveData.TryGetValue(key, out string? oldSerialized))
                     {
                         if (string.Equals(oldSerialized, newSerialized))
@@ -103,7 +107,7 @@ namespace OblivionSaveReader
 
                     }
                     prevHiveData[key] = newSerialized;
-                    UploadSerializedData(key, newSerialized);
+                    await UploadSerializedData(key, newSerialized);
                 }
                 return true;
             }
