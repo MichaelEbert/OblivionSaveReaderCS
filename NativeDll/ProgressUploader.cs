@@ -104,9 +104,13 @@ namespace OblivionSaveReader
                         {
                             continue;
                         }
-
                     }
                     prevHiveData[key] = newSerialized;
+                    if ((progressFile[key] as DObject).Keys.Count == 0)
+                    {
+                        // don't upload empty objects
+                        continue;
+                    }
                     await UploadSerializedData(key, newSerialized);
                 }
                 return true;
