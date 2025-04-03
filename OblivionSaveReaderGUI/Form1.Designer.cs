@@ -28,257 +28,285 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
+            components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(OblivionSaveUploader));
-            this.label1 = new System.Windows.Forms.Label();
-            this.ShareCodeLabel = new System.Windows.Forms.Label();
-            this.shareCodeTooltip = new System.Windows.Forms.ToolTip(this.components);
-            this.shareKeyLabel = new System.Windows.Forms.Label();
-            this.forceRefreshCheckbox = new System.Windows.Forms.CheckBox();
-            this.shareCodeTextbox = new System.Windows.Forms.TextBox();
-            this.shareKeyTextbox = new System.Windows.Forms.TextBox();
-            this.loggingTextBox = new System.Windows.Forms.TextBox();
-            this.startButton = new System.Windows.Forms.Button();
-            this.logLabel = new System.Windows.Forms.Label();
-            this.tabControl1 = new System.Windows.Forms.TabControl();
-            this.tabPageBasic = new System.Windows.Forms.TabPage();
-            this.tabPageAdvanced = new System.Windows.Forms.TabPage();
-            this.importSettingsButton = new System.Windows.Forms.Button();
-            this.saveFileDirectoryTextbox = new System.Windows.Forms.TextBox();
-            this.saveFilePathLabel = new System.Windows.Forms.Label();
-            this.jsonDataUrlLabel = new System.Windows.Forms.Label();
-            this.uploadUrlLabel = new System.Windows.Forms.Label();
-            this.jsonDataUrlTextbox = new System.Windows.Forms.TextBox();
-            this.uploadUrlTextbox = new System.Windows.Forms.TextBox();
-            this.tabControl1.SuspendLayout();
-            this.tabPageBasic.SuspendLayout();
-            this.tabPageAdvanced.SuspendLayout();
-            this.SuspendLayout();
+            label1 = new Label();
+            ShareCodeLabel = new Label();
+            shareCodeTooltip = new ToolTip(components);
+            shareKeyLabel = new Label();
+            forceRefreshCheckbox = new CheckBox();
+            shareCodeTextbox = new TextBox();
+            syncButton = new Button();
+            shareKeyTextbox = new TextBox();
+            loggingTextBox = new TextBox();
+            startButton = new Button();
+            logLabel = new Label();
+            tabControl1 = new TabControl();
+            tabPageBasic = new TabPage();
+            tabPageAdvanced = new TabPage();
+            importSettingsButton = new Button();
+            saveFileDirectoryTextbox = new TextBox();
+            saveFilePathLabel = new Label();
+            jsonDataUrlLabel = new Label();
+            uploadUrlLabel = new Label();
+            jsonDataUrlTextbox = new TextBox();
+            uploadUrlTextbox = new TextBox();
+            tabControl1.SuspendLayout();
+            tabPageBasic.SuspendLayout();
+            tabPageAdvanced.SuspendLayout();
+            SuspendLayout();
             // 
             // label1
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Segoe UI", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.label1.Location = new System.Drawing.Point(12, 9);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(244, 30);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Oblivion Save Uploader";
+            label1.AutoSize = true;
+            label1.Font = new Font("Segoe UI", 15.75F, FontStyle.Bold);
+            label1.Location = new Point(22, 19);
+            label1.Margin = new Padding(6, 0, 6, 0);
+            label1.Name = "label1";
+            label1.Size = new Size(493, 57);
+            label1.TabIndex = 0;
+            label1.Text = "Oblivion Save Uploader";
             // 
             // ShareCodeLabel
             // 
-            this.ShareCodeLabel.AutoSize = true;
-            this.ShareCodeLabel.Location = new System.Drawing.Point(5, 10);
-            this.ShareCodeLabel.Name = "ShareCodeLabel";
-            this.ShareCodeLabel.Size = new System.Drawing.Size(67, 15);
-            this.ShareCodeLabel.TabIndex = 1;
-            this.ShareCodeLabel.Text = "Share Code";
-            this.shareCodeTooltip.SetToolTip(this.ShareCodeLabel, global::OblivionSaveReaderGUI.Properties.Resources.ShareCodeTooltip);
+            ShareCodeLabel.AutoSize = true;
+            ShareCodeLabel.Location = new Point(9, 21);
+            ShareCodeLabel.Margin = new Padding(6, 0, 6, 0);
+            ShareCodeLabel.Name = "ShareCodeLabel";
+            ShareCodeLabel.Size = new Size(137, 32);
+            ShareCodeLabel.TabIndex = 1;
+            ShareCodeLabel.Text = "Share Code";
+            shareCodeTooltip.SetToolTip(ShareCodeLabel, Properties.Resources.ShareCodeTooltip);
             // 
             // shareKeyLabel
             // 
-            this.shareKeyLabel.AutoSize = true;
-            this.shareKeyLabel.Location = new System.Drawing.Point(5, 46);
-            this.shareKeyLabel.Name = "shareKeyLabel";
-            this.shareKeyLabel.Size = new System.Drawing.Size(58, 15);
-            this.shareKeyLabel.TabIndex = 3;
-            this.shareKeyLabel.Text = "Share Key";
-            this.shareCodeTooltip.SetToolTip(this.shareKeyLabel, global::OblivionSaveReaderGUI.Properties.Resources.ShareKeyTooltip);
+            shareKeyLabel.AutoSize = true;
+            shareKeyLabel.Location = new Point(9, 98);
+            shareKeyLabel.Margin = new Padding(6, 0, 6, 0);
+            shareKeyLabel.Name = "shareKeyLabel";
+            shareKeyLabel.Size = new Size(120, 32);
+            shareKeyLabel.TabIndex = 3;
+            shareKeyLabel.Text = "Share Key";
+            shareCodeTooltip.SetToolTip(shareKeyLabel, Properties.Resources.ShareKeyTooltip);
             // 
             // forceRefreshCheckbox
             // 
-            this.forceRefreshCheckbox.AutoSize = true;
-            this.forceRefreshCheckbox.Location = new System.Drawing.Point(9, 103);
-            this.forceRefreshCheckbox.Name = "forceRefreshCheckbox";
-            this.forceRefreshCheckbox.Size = new System.Drawing.Size(97, 19);
-            this.forceRefreshCheckbox.TabIndex = 7;
-            this.forceRefreshCheckbox.Text = "Force Refresh";
-            this.shareCodeTooltip.SetToolTip(this.forceRefreshCheckbox, "Force redownload of json files instead of using cached ones");
-            this.forceRefreshCheckbox.UseVisualStyleBackColor = true;
+            forceRefreshCheckbox.AutoSize = true;
+            forceRefreshCheckbox.Location = new Point(17, 220);
+            forceRefreshCheckbox.Margin = new Padding(6);
+            forceRefreshCheckbox.Name = "forceRefreshCheckbox";
+            forceRefreshCheckbox.Size = new Size(190, 36);
+            forceRefreshCheckbox.TabIndex = 7;
+            forceRefreshCheckbox.Text = "Force Refresh";
+            shareCodeTooltip.SetToolTip(forceRefreshCheckbox, "Force redownload of json files instead of using cached ones");
+            forceRefreshCheckbox.UseVisualStyleBackColor = true;
             // 
             // shareCodeTextbox
             // 
-            this.shareCodeTextbox.Location = new System.Drawing.Point(78, 7);
-            this.shareCodeTextbox.Name = "shareCodeTextbox";
-            this.shareCodeTextbox.PlaceholderText = "Auto generate";
-            this.shareCodeTextbox.Size = new System.Drawing.Size(100, 23);
-            this.shareCodeTextbox.TabIndex = 2;
-            this.shareCodeTooltip.SetToolTip(this.shareCodeTextbox, global::OblivionSaveReaderGUI.Properties.Resources.ShareCodeTooltip);
-            this.shareCodeTextbox.TextChanged += new System.EventHandler(this.shareCodeTextbox_TextChanged);
+            shareCodeTextbox.Location = new Point(145, 15);
+            shareCodeTextbox.Margin = new Padding(6);
+            shareCodeTextbox.Name = "shareCodeTextbox";
+            shareCodeTextbox.PlaceholderText = "Auto generate";
+            shareCodeTextbox.Size = new Size(182, 39);
+            shareCodeTextbox.TabIndex = 2;
+            shareCodeTooltip.SetToolTip(shareCodeTextbox, Properties.Resources.ShareCodeTooltip);
+            shareCodeTextbox.TextChanged += shareCodeTextbox_TextChanged;
+            // 
+            // syncButton
+            // 
+            syncButton.Location = new Point(267, 205);
+            syncButton.Margin = new Padding(6);
+            syncButton.Name = "syncButton";
+            syncButton.Size = new Size(258, 53);
+            syncButton.TabIndex = 10;
+            syncButton.Text = "Allow Edit On Website";
+            shareCodeTooltip.SetToolTip(syncButton, "Allow website to edit the same progress info");
+            syncButton.UseVisualStyleBackColor = true;
+            syncButton.Click += syncButton_Click;
             // 
             // shareKeyTextbox
             // 
-            this.shareKeyTextbox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.shareKeyTextbox.Location = new System.Drawing.Point(78, 43);
-            this.shareKeyTextbox.Name = "shareKeyTextbox";
-            this.shareKeyTextbox.PlaceholderText = "Leave blank to auto generate";
-            this.shareKeyTextbox.Size = new System.Drawing.Size(333, 23);
-            this.shareKeyTextbox.TabIndex = 4;
-            this.shareKeyTextbox.UseSystemPasswordChar = true;
-            this.shareKeyTextbox.TextChanged += new System.EventHandler(this.shareKeyTextbox_TextChanged);
+            shareKeyTextbox.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            shareKeyTextbox.Location = new Point(145, 92);
+            shareKeyTextbox.Margin = new Padding(6);
+            shareKeyTextbox.Name = "shareKeyTextbox";
+            shareKeyTextbox.PlaceholderText = "Leave blank to auto generate";
+            shareKeyTextbox.Size = new Size(615, 39);
+            shareKeyTextbox.TabIndex = 4;
+            shareKeyTextbox.UseSystemPasswordChar = true;
+            shareKeyTextbox.TextChanged += shareKeyTextbox_TextChanged;
             // 
             // loggingTextBox
             // 
-            this.loggingTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.loggingTextBox.Location = new System.Drawing.Point(16, 249);
-            this.loggingTextBox.Multiline = true;
-            this.loggingTextBox.Name = "loggingTextBox";
-            this.loggingTextBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.loggingTextBox.Size = new System.Drawing.Size(425, 107);
-            this.loggingTextBox.TabIndex = 5;
+            loggingTextBox.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            loggingTextBox.Location = new Point(22, 531);
+            loggingTextBox.Margin = new Padding(6);
+            loggingTextBox.Multiline = true;
+            loggingTextBox.Name = "loggingTextBox";
+            loggingTextBox.ScrollBars = ScrollBars.Vertical;
+            loggingTextBox.Size = new Size(786, 224);
+            loggingTextBox.TabIndex = 5;
             // 
             // startButton
             // 
-            this.startButton.Location = new System.Drawing.Point(12, 205);
-            this.startButton.Name = "startButton";
-            this.startButton.Size = new System.Drawing.Size(75, 23);
-            this.startButton.TabIndex = 6;
-            this.startButton.Text = "Start Monitoring";
-            this.startButton.UseVisualStyleBackColor = true;
-            this.startButton.Click += new System.EventHandler(this.startButton_Click);
+            startButton.Location = new Point(22, 437);
+            startButton.Margin = new Padding(6);
+            startButton.Name = "startButton";
+            startButton.Size = new Size(222, 49);
+            startButton.TabIndex = 6;
+            startButton.Text = "Start Monitoring";
+            startButton.UseVisualStyleBackColor = true;
+            startButton.Click += startButton_Click;
             // 
             // logLabel
             // 
-            this.logLabel.AutoSize = true;
-            this.logLabel.Location = new System.Drawing.Point(16, 231);
-            this.logLabel.Name = "logLabel";
-            this.logLabel.Size = new System.Drawing.Size(32, 15);
-            this.logLabel.TabIndex = 7;
-            this.logLabel.Text = "Logs";
+            logLabel.AutoSize = true;
+            logLabel.Location = new Point(22, 493);
+            logLabel.Margin = new Padding(6, 0, 6, 0);
+            logLabel.Name = "logLabel";
+            logLabel.Size = new Size(63, 32);
+            logLabel.TabIndex = 7;
+            logLabel.Text = "Logs";
             // 
             // tabControl1
             // 
-            this.tabControl1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.tabControl1.Controls.Add(this.tabPageBasic);
-            this.tabControl1.Controls.Add(this.tabPageAdvanced);
-            this.tabControl1.Location = new System.Drawing.Point(12, 42);
-            this.tabControl1.Name = "tabControl1";
-            this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(425, 157);
-            this.tabControl1.TabIndex = 9;
+            tabControl1.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            tabControl1.Controls.Add(tabPageBasic);
+            tabControl1.Controls.Add(tabPageAdvanced);
+            tabControl1.Location = new Point(22, 90);
+            tabControl1.Margin = new Padding(6);
+            tabControl1.Name = "tabControl1";
+            tabControl1.SelectedIndex = 0;
+            tabControl1.Size = new Size(789, 335);
+            tabControl1.TabIndex = 9;
             // 
             // tabPageBasic
             // 
-            this.tabPageBasic.Controls.Add(this.shareKeyTextbox);
-            this.tabPageBasic.Controls.Add(this.ShareCodeLabel);
-            this.tabPageBasic.Controls.Add(this.shareKeyLabel);
-            this.tabPageBasic.Controls.Add(this.shareCodeTextbox);
-            this.tabPageBasic.Location = new System.Drawing.Point(4, 24);
-            this.tabPageBasic.Name = "tabPageBasic";
-            this.tabPageBasic.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageBasic.Size = new System.Drawing.Size(417, 129);
-            this.tabPageBasic.TabIndex = 0;
-            this.tabPageBasic.Text = "Options";
-            this.tabPageBasic.UseVisualStyleBackColor = true;
+            tabPageBasic.Controls.Add(shareKeyTextbox);
+            tabPageBasic.Controls.Add(ShareCodeLabel);
+            tabPageBasic.Controls.Add(shareKeyLabel);
+            tabPageBasic.Controls.Add(shareCodeTextbox);
+            tabPageBasic.Location = new Point(8, 46);
+            tabPageBasic.Margin = new Padding(6);
+            tabPageBasic.Name = "tabPageBasic";
+            tabPageBasic.Padding = new Padding(6);
+            tabPageBasic.Size = new Size(773, 281);
+            tabPageBasic.TabIndex = 0;
+            tabPageBasic.Text = "Options";
+            tabPageBasic.UseVisualStyleBackColor = true;
             // 
             // tabPageAdvanced
             // 
-            this.tabPageAdvanced.Controls.Add(this.importSettingsButton);
-            this.tabPageAdvanced.Controls.Add(this.forceRefreshCheckbox);
-            this.tabPageAdvanced.Controls.Add(this.saveFileDirectoryTextbox);
-            this.tabPageAdvanced.Controls.Add(this.saveFilePathLabel);
-            this.tabPageAdvanced.Controls.Add(this.jsonDataUrlLabel);
-            this.tabPageAdvanced.Controls.Add(this.uploadUrlLabel);
-            this.tabPageAdvanced.Controls.Add(this.jsonDataUrlTextbox);
-            this.tabPageAdvanced.Controls.Add(this.uploadUrlTextbox);
-            this.tabPageAdvanced.Location = new System.Drawing.Point(4, 24);
-            this.tabPageAdvanced.Name = "tabPageAdvanced";
-            this.tabPageAdvanced.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageAdvanced.Size = new System.Drawing.Size(417, 129);
-            this.tabPageAdvanced.TabIndex = 1;
-            this.tabPageAdvanced.Text = "Advanced";
-            this.tabPageAdvanced.UseVisualStyleBackColor = true;
+            tabPageAdvanced.Controls.Add(syncButton);
+            tabPageAdvanced.Controls.Add(importSettingsButton);
+            tabPageAdvanced.Controls.Add(forceRefreshCheckbox);
+            tabPageAdvanced.Controls.Add(saveFileDirectoryTextbox);
+            tabPageAdvanced.Controls.Add(saveFilePathLabel);
+            tabPageAdvanced.Controls.Add(jsonDataUrlLabel);
+            tabPageAdvanced.Controls.Add(uploadUrlLabel);
+            tabPageAdvanced.Controls.Add(jsonDataUrlTextbox);
+            tabPageAdvanced.Controls.Add(uploadUrlTextbox);
+            tabPageAdvanced.Location = new Point(8, 46);
+            tabPageAdvanced.Margin = new Padding(6);
+            tabPageAdvanced.Name = "tabPageAdvanced";
+            tabPageAdvanced.Padding = new Padding(6);
+            tabPageAdvanced.Size = new Size(773, 281);
+            tabPageAdvanced.TabIndex = 1;
+            tabPageAdvanced.Text = "Advanced";
+            tabPageAdvanced.UseVisualStyleBackColor = true;
             // 
             // importSettingsButton
             // 
-            this.importSettingsButton.Location = new System.Drawing.Point(259, 97);
-            this.importSettingsButton.Name = "importSettingsButton";
-            this.importSettingsButton.Size = new System.Drawing.Size(120, 25);
-            this.importSettingsButton.TabIndex = 8;
-            this.importSettingsButton.Text = "Import Settings";
-            this.importSettingsButton.UseVisualStyleBackColor = true;
-            this.importSettingsButton.Click += new System.EventHandler(this.importSettingsButton_Click);
+            importSettingsButton.Location = new Point(537, 205);
+            importSettingsButton.Margin = new Padding(6);
+            importSettingsButton.Name = "importSettingsButton";
+            importSettingsButton.Size = new Size(223, 53);
+            importSettingsButton.TabIndex = 8;
+            importSettingsButton.Text = "Import Settings";
+            shareCodeTooltip.SetToolTip(importSettingsButton, "Import settings from previous version of oblivion save uploader");
+            importSettingsButton.UseVisualStyleBackColor = true;
+            importSettingsButton.Click += importSettingsButton_Click;
             // 
             // saveFileDirectoryTextbox
             // 
-            this.saveFileDirectoryTextbox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.saveFileDirectoryTextbox.Location = new System.Drawing.Point(112, 64);
-            this.saveFileDirectoryTextbox.Name = "saveFileDirectoryTextbox";
-            this.saveFileDirectoryTextbox.PlaceholderText = "Leave blank for auto detect";
-            this.saveFileDirectoryTextbox.Size = new System.Drawing.Size(299, 23);
-            this.saveFileDirectoryTextbox.TabIndex = 5;
-            this.saveFileDirectoryTextbox.TextChanged += new System.EventHandler(this.saveFileDirectoryTextbox_TextChanged);
+            saveFileDirectoryTextbox.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            saveFileDirectoryTextbox.Location = new Point(208, 137);
+            saveFileDirectoryTextbox.Margin = new Padding(6);
+            saveFileDirectoryTextbox.Name = "saveFileDirectoryTextbox";
+            saveFileDirectoryTextbox.PlaceholderText = "Leave blank for auto detect";
+            saveFileDirectoryTextbox.Size = new Size(552, 39);
+            saveFileDirectoryTextbox.TabIndex = 5;
+            saveFileDirectoryTextbox.TextChanged += saveFileDirectoryTextbox_TextChanged;
             // 
             // saveFilePathLabel
             // 
-            this.saveFilePathLabel.AutoSize = true;
-            this.saveFilePathLabel.Location = new System.Drawing.Point(3, 67);
-            this.saveFilePathLabel.Name = "saveFilePathLabel";
-            this.saveFilePathLabel.Size = new System.Drawing.Size(100, 15);
-            this.saveFilePathLabel.TabIndex = 4;
-            this.saveFilePathLabel.Text = "Save file directory";
+            saveFilePathLabel.AutoSize = true;
+            saveFilePathLabel.Location = new Point(6, 143);
+            saveFilePathLabel.Margin = new Padding(6, 0, 6, 0);
+            saveFilePathLabel.Name = "saveFilePathLabel";
+            saveFilePathLabel.Size = new Size(205, 32);
+            saveFilePathLabel.TabIndex = 4;
+            saveFilePathLabel.Text = "Save file directory";
             // 
             // jsonDataUrlLabel
             // 
-            this.jsonDataUrlLabel.AutoSize = true;
-            this.jsonDataUrlLabel.Location = new System.Drawing.Point(3, 38);
-            this.jsonDataUrlLabel.Name = "jsonDataUrlLabel";
-            this.jsonDataUrlLabel.Size = new System.Drawing.Size(80, 15);
-            this.jsonDataUrlLabel.TabIndex = 3;
-            this.jsonDataUrlLabel.Text = "JSON Data Url";
+            jsonDataUrlLabel.AutoSize = true;
+            jsonDataUrlLabel.Location = new Point(6, 81);
+            jsonDataUrlLabel.Margin = new Padding(6, 0, 6, 0);
+            jsonDataUrlLabel.Name = "jsonDataUrlLabel";
+            jsonDataUrlLabel.Size = new Size(165, 32);
+            jsonDataUrlLabel.TabIndex = 3;
+            jsonDataUrlLabel.Text = "JSON Data Url";
             // 
             // uploadUrlLabel
             // 
-            this.uploadUrlLabel.AutoSize = true;
-            this.uploadUrlLabel.Location = new System.Drawing.Point(3, 9);
-            this.uploadUrlLabel.Name = "uploadUrlLabel";
-            this.uploadUrlLabel.Size = new System.Drawing.Size(69, 15);
-            this.uploadUrlLabel.TabIndex = 2;
-            this.uploadUrlLabel.Text = "Upload URL";
+            uploadUrlLabel.AutoSize = true;
+            uploadUrlLabel.Location = new Point(6, 19);
+            uploadUrlLabel.Margin = new Padding(6, 0, 6, 0);
+            uploadUrlLabel.Name = "uploadUrlLabel";
+            uploadUrlLabel.Size = new Size(138, 32);
+            uploadUrlLabel.TabIndex = 2;
+            uploadUrlLabel.Text = "Upload URL";
             // 
             // jsonDataUrlTextbox
             // 
-            this.jsonDataUrlTextbox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.jsonDataUrlTextbox.Location = new System.Drawing.Point(94, 35);
-            this.jsonDataUrlTextbox.Name = "jsonDataUrlTextbox";
-            this.jsonDataUrlTextbox.Size = new System.Drawing.Size(317, 23);
-            this.jsonDataUrlTextbox.TabIndex = 1;
+            jsonDataUrlTextbox.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            jsonDataUrlTextbox.Location = new Point(175, 75);
+            jsonDataUrlTextbox.Margin = new Padding(6);
+            jsonDataUrlTextbox.Name = "jsonDataUrlTextbox";
+            jsonDataUrlTextbox.Size = new Size(585, 39);
+            jsonDataUrlTextbox.TabIndex = 1;
             // 
             // uploadUrlTextbox
             // 
-            this.uploadUrlTextbox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.uploadUrlTextbox.Location = new System.Drawing.Point(94, 6);
-            this.uploadUrlTextbox.Name = "uploadUrlTextbox";
-            this.uploadUrlTextbox.Size = new System.Drawing.Size(317, 23);
-            this.uploadUrlTextbox.TabIndex = 0;
+            uploadUrlTextbox.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            uploadUrlTextbox.Location = new Point(175, 13);
+            uploadUrlTextbox.Margin = new Padding(6);
+            uploadUrlTextbox.Name = "uploadUrlTextbox";
+            uploadUrlTextbox.Size = new Size(585, 39);
+            uploadUrlTextbox.TabIndex = 0;
             // 
             // OblivionSaveUploader
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(453, 368);
-            this.Controls.Add(this.tabControl1);
-            this.Controls.Add(this.startButton);
-            this.Controls.Add(this.logLabel);
-            this.Controls.Add(this.loggingTextBox);
-            this.Controls.Add(this.label1);
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Name = "OblivionSaveUploader";
-            this.Text = "Oblivion Save Uploader";
-            this.tabControl1.ResumeLayout(false);
-            this.tabPageBasic.ResumeLayout(false);
-            this.tabPageBasic.PerformLayout();
-            this.tabPageAdvanced.ResumeLayout(false);
-            this.tabPageAdvanced.PerformLayout();
-            this.ResumeLayout(false);
-            this.PerformLayout();
+            AutoScaleDimensions = new SizeF(13F, 32F);
+            AutoScaleMode = AutoScaleMode.Font;
+            ClientSize = new Size(841, 785);
+            Controls.Add(tabControl1);
+            Controls.Add(startButton);
+            Controls.Add(logLabel);
+            Controls.Add(loggingTextBox);
+            Controls.Add(label1);
+            Icon = (Icon)resources.GetObject("$this.Icon");
+            Margin = new Padding(6);
+            Name = "OblivionSaveUploader";
+            Text = "Oblivion Save Uploader";
+            tabControl1.ResumeLayout(false);
+            tabPageBasic.ResumeLayout(false);
+            tabPageBasic.PerformLayout();
+            tabPageAdvanced.ResumeLayout(false);
+            tabPageAdvanced.PerformLayout();
+            ResumeLayout(false);
+            PerformLayout();
 
         }
 
@@ -304,5 +332,6 @@
         private Label jsonDataUrlLabel;
         private CheckBox forceRefreshCheckbox;
         private Button importSettingsButton;
+        private Button syncButton;
     }
 }

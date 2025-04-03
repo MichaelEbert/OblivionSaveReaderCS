@@ -1,6 +1,8 @@
 using OblivionSaveReader;
 using System.Configuration;
 using System.Diagnostics;
+using System.Net.Http.Json;
+using System.Net.Http;
 using System.Resources;
 
 namespace OblivionSaveReaderGUI
@@ -11,6 +13,7 @@ namespace OblivionSaveReaderGUI
         private ProgressWriter? progressWriter;
         private ProgressUploader? progressUploader;
         private Task? currentUpload = null;
+        static readonly HttpClient httpClient = new HttpClient();
         /// <summary>
         /// Mark if settings have changed and we should save.
         /// </summary>
@@ -42,7 +45,7 @@ namespace OblivionSaveReaderGUI
             SaveSettings();
 
             progressWriter = await ProgressWriter.Create(jsonDataUrlTextbox.Text, forceRefreshCheckbox.Checked);
-            if(shareKeyTextbox.Text.Length == 0)
+            if (shareKeyTextbox.Text.Length == 0)
             {
                 progressUploader = new ProgressUploader(uploadUrlTextbox.Text);
             }
@@ -50,17 +53,17 @@ namespace OblivionSaveReaderGUI
             {
                 progressUploader = new ProgressUploader(uploadUrlTextbox.Text, shareCodeTextbox.Text, shareKeyTextbox.Text);
             }
-            
-            
-            if(saveWatcher != null)
+
+
+            if (saveWatcher != null)
             {
                 saveWatcher.Dispose();
             }
 
             string? maybeSaveFileName = saveFileDirectoryTextbox.Text;
-            saveWatcher = new SaveWatcher(maybeSaveFileName , (filename) =>
+            saveWatcher = new SaveWatcher(maybeSaveFileName, (filename) =>
             {
-                if(currentUpload == null || (currentUpload.Status == TaskStatus.RanToCompletion || currentUpload.Status == TaskStatus.Faulted || currentUpload.Status == TaskStatus.Canceled))
+                if (currentUpload == null || (currentUpload.Status == TaskStatus.RanToCompletion || currentUpload.Status == TaskStatus.Faulted || currentUpload.Status == TaskStatus.Canceled))
                 {
                     currentUpload = Task.Run(async () =>
                     {
@@ -157,7 +160,7 @@ namespace OblivionSaveReaderGUI
                                 orderby dir.LastWriteTimeUtc descending
                                 select dir;
 
-                foreach(var lastModifiedDir in otherDirs)
+                foreach (var lastModifiedDir in otherDirs)
                 {
                     var lastVersionDir = lastModifiedDir.GetDirectories().OrderByDescending(d => d.LastWriteTimeUtc).First();
                     var prevConfigs = lastVersionDir.GetFiles("user.config");
@@ -165,15 +168,16 @@ namespace OblivionSaveReaderGUI
                     {
                         myFile.Directory.Create();
                         File.Copy(prevConfigs[0].FullName, myFile.FullName, false);
-                        Trace.WriteLine("Previous settings copied from "+ prevConfigs[0].FullName);
+                        Trace.WriteLine("Previous settings copied from " + prevConfigs[0].FullName);
                         Properties.Settings.Default.Reload();
                         LoadSettings();
                         break;
                     }
                 }
-                
+
             }
-            catch {
+            catch
+            {
                 Trace.WriteLine("Unable to copy previous settings.");
             }
         }
@@ -196,6 +200,31 @@ namespace OblivionSaveReaderGUI
         private void importSettingsButton_Click(object sender, EventArgs e)
         {
             copyPreviousSettings();
+        }
+
+        private async void syncButton_Click(object sender, EventArgs e)
+        {
+            //TODO: get share code if blank.
+            await UploadShareKey(shareCodeTextbox.Text, shareKeyTextbox.Text);
+        }
+
+        private async Task<bool> UploadShareKey(string shareCode, string shareKey)
+        {
+            System.Diagnostics.Trace.WriteLine($"Allowing edit access for {shareCode}... ");
+            if (shareCode == null) { return false; }
+
+            HttpContent content = JsonContent.Create(shareKey);
+            var resp = await httpClient.PostAsync($"{uploadUrlTextbox.Text}/{shareCode}/sync", content);
+            var respContent = await resp.Content.ReadAsStringAsync();
+            if (resp.IsSuccessStatusCode)
+            {
+                System.Diagnostics.Trace.WriteLine($"Complete.");
+            }
+            else
+            {
+                System.Diagnostics.Trace.WriteLine($"Upload failed with status {resp.StatusCode} and body {respContent}");
+            }
+            return resp.IsSuccessStatusCode;
         }
     }
 }
