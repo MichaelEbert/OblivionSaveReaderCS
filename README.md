@@ -3,7 +3,7 @@ Track local oblivion progress on the [Interactive Oblivion Progress Tracker](htt
 
 # To Use (continuous upload)
 ![Main interface of auto uploader](./doc/appImage.png)
-1. Download the [dotnet 6 redistributable](https://dotnet.microsoft.com/en-us/download/dotnet/6.0)
+1. Download the [dotnet 8 redistributable](https://dotnet.microsoft.com/en-us/download/dotnet/8.0)
 2. Download release and unzip.
 3. Open app.
 4. (Optional) Import your account from the interactive oblivion checklist:
