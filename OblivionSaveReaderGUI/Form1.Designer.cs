@@ -37,6 +37,7 @@
             forceRefreshCheckbox = new CheckBox();
             shareCodeTextbox = new TextBox();
             syncButton = new Button();
+            importSettingsButton = new Button();
             shareKeyTextbox = new TextBox();
             loggingTextBox = new TextBox();
             startButton = new Button();
@@ -44,7 +45,6 @@
             tabControl1 = new TabControl();
             tabPageBasic = new TabPage();
             tabPageAdvanced = new TabPage();
-            importSettingsButton = new Button();
             saveFileDirectoryTextbox = new TextBox();
             saveFilePathLabel = new Label();
             jsonDataUrlLabel = new Label();
@@ -81,7 +81,7 @@
             // shareKeyLabel
             // 
             shareKeyLabel.AutoSize = true;
-            shareKeyLabel.Location = new Point(9, 98);
+            shareKeyLabel.Location = new Point(9, 81);
             shareKeyLabel.Margin = new Padding(6, 0, 6, 0);
             shareKeyLabel.Name = "shareKeyLabel";
             shareKeyLabel.Size = new Size(120, 32);
@@ -103,7 +103,7 @@
             // 
             // shareCodeTextbox
             // 
-            shareCodeTextbox.Location = new Point(145, 15);
+            shareCodeTextbox.Location = new Point(158, 18);
             shareCodeTextbox.Margin = new Padding(6);
             shareCodeTextbox.Name = "shareCodeTextbox";
             shareCodeTextbox.PlaceholderText = "Auto generate";
@@ -114,24 +114,36 @@
             // 
             // syncButton
             // 
-            syncButton.Location = new Point(267, 205);
+            syncButton.Location = new Point(9, 141);
             syncButton.Margin = new Padding(6);
             syncButton.Name = "syncButton";
             syncButton.Size = new Size(258, 53);
             syncButton.TabIndex = 10;
-            syncButton.Text = "Allow Edit On Website";
+            syncButton.Text = "Sync With Website";
             shareCodeTooltip.SetToolTip(syncButton, "Allow website to edit the same progress info");
             syncButton.UseVisualStyleBackColor = true;
             syncButton.Click += syncButton_Click;
             // 
+            // importSettingsButton
+            // 
+            importSettingsButton.Location = new Point(537, 205);
+            importSettingsButton.Margin = new Padding(6);
+            importSettingsButton.Name = "importSettingsButton";
+            importSettingsButton.Size = new Size(223, 53);
+            importSettingsButton.TabIndex = 8;
+            importSettingsButton.Text = "Import Settings";
+            shareCodeTooltip.SetToolTip(importSettingsButton, "Import settings from previous version of oblivion save uploader");
+            importSettingsButton.UseVisualStyleBackColor = true;
+            importSettingsButton.Click += importSettingsButton_Click;
+            // 
             // shareKeyTextbox
             // 
             shareKeyTextbox.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            shareKeyTextbox.Location = new Point(145, 92);
+            shareKeyTextbox.Location = new Point(158, 78);
             shareKeyTextbox.Margin = new Padding(6);
             shareKeyTextbox.Name = "shareKeyTextbox";
             shareKeyTextbox.PlaceholderText = "Leave blank to auto generate";
-            shareKeyTextbox.Size = new Size(615, 39);
+            shareKeyTextbox.Size = new Size(602, 39);
             shareKeyTextbox.TabIndex = 4;
             shareKeyTextbox.UseSystemPasswordChar = true;
             shareKeyTextbox.TextChanged += shareKeyTextbox_TextChanged;
@@ -182,6 +194,7 @@
             // 
             // tabPageBasic
             // 
+            tabPageBasic.Controls.Add(syncButton);
             tabPageBasic.Controls.Add(shareKeyTextbox);
             tabPageBasic.Controls.Add(ShareCodeLabel);
             tabPageBasic.Controls.Add(shareKeyLabel);
@@ -197,7 +210,6 @@
             // 
             // tabPageAdvanced
             // 
-            tabPageAdvanced.Controls.Add(syncButton);
             tabPageAdvanced.Controls.Add(importSettingsButton);
             tabPageAdvanced.Controls.Add(forceRefreshCheckbox);
             tabPageAdvanced.Controls.Add(saveFileDirectoryTextbox);
@@ -214,18 +226,6 @@
             tabPageAdvanced.TabIndex = 1;
             tabPageAdvanced.Text = "Advanced";
             tabPageAdvanced.UseVisualStyleBackColor = true;
-            // 
-            // importSettingsButton
-            // 
-            importSettingsButton.Location = new Point(537, 205);
-            importSettingsButton.Margin = new Padding(6);
-            importSettingsButton.Name = "importSettingsButton";
-            importSettingsButton.Size = new Size(223, 53);
-            importSettingsButton.TabIndex = 8;
-            importSettingsButton.Text = "Import Settings";
-            shareCodeTooltip.SetToolTip(importSettingsButton, "Import settings from previous version of oblivion save uploader");
-            importSettingsButton.UseVisualStyleBackColor = true;
-            importSettingsButton.Click += importSettingsButton_Click;
             // 
             // saveFileDirectoryTextbox
             // 

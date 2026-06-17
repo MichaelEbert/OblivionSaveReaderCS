@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Net.Http.Json;
 using System.Net.Http;
 using System.Resources;
+using System.ComponentModel.DataAnnotations;
 
 namespace OblivionSaveReaderGUI
 {
@@ -25,7 +26,7 @@ namespace OblivionSaveReaderGUI
 
 
             jsonDataUrlTextbox.Text = "https://michaelebert.github.io/OblivionProgressTracker/data/";
-            uploadUrlTextbox.Text = "https://ratskip.azurewebsites.net/share";
+            uploadUrlTextbox.Text = "https://oblivion.azuriteforest.net/share";
 
 
             MyTraceListener listener = new MyTraceListener(loggingTextBox);
@@ -154,8 +155,8 @@ namespace OblivionSaveReaderGUI
                 var mypath = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.PerUserRoamingAndLocal).FilePath;
                 //stored in {appname_hash}/{version}/config.exe, so we go up 2 levels to search all appnames.
                 var myFile = new FileInfo(mypath);
-                var searchDirectory = myFile?.Directory?.Parent.Parent;
-                var otherDirs = from dir in searchDirectory.GetDirectories()
+                var searchDirectory = myFile?.Directory?.Parent?.Parent;
+                var otherDirs = from dir in searchDirectory?.GetDirectories()
                                 where dir.FullName != myFile.Directory.Parent.FullName
                                 orderby dir.LastWriteTimeUtc descending
                                 select dir;
@@ -205,26 +206,60 @@ namespace OblivionSaveReaderGUI
         private async void syncButton_Click(object sender, EventArgs e)
         {
             //TODO: get share code if blank.
-            await UploadShareKey(shareCodeTextbox.Text, shareKeyTextbox.Text);
+            if (shareCodeTextbox.Text.Length != 6)
+            {
+                System.Diagnostics.Trace.WriteLine("cannot sync without share code.");
+            }
+            else
+            {
+                await UploadShareKey(shareCodeTextbox.Text, shareKeyTextbox.Text).ConfigureAwait(false);
+            }
         }
 
         private async Task<bool> UploadShareKey(string shareCode, string shareKey)
         {
-            System.Diagnostics.Trace.WriteLine($"Allowing edit access for {shareCode}... ");
             if (shareCode == null) { return false; }
 
-            HttpContent content = JsonContent.Create(shareKey);
-            var resp = await httpClient.PostAsync($"{uploadUrlTextbox.Text}/{shareCode}/sync", content);
-            var respContent = await resp.Content.ReadAsStringAsync();
-            if (resp.IsSuccessStatusCode)
+            if (shareKey.Length != 0)
             {
-                System.Diagnostics.Trace.WriteLine($"Complete.");
+                System.Diagnostics.Trace.WriteLine($"Allowing edit access for {shareCode}... ");
+                //we have a share key. try to authorize website to connect.
+                HttpContent content = JsonContent.Create(shareKey);
+                var resp = await httpClient.PostAsync($"{uploadUrlTextbox.Text}/{shareCode}/sync", content);
+                var respContent = await resp.Content.ReadAsStringAsync();
+                if (resp.IsSuccessStatusCode)
+                {
+                    System.Diagnostics.Trace.WriteLine($"Complete.");
+                }
+                else
+                {
+                    System.Diagnostics.Trace.WriteLine($"Upload failed with status {resp.StatusCode} and body {respContent}");
+                }
+                return resp.IsSuccessStatusCode;
             }
             else
             {
-                System.Diagnostics.Trace.WriteLine($"Upload failed with status {resp.StatusCode} and body {respContent}");
+                //we have no share key. try to get from website.
+                System.Diagnostics.Trace.WriteLine($"Obtaining edit access for {shareCode}... ");
+                var resp = await httpClient.GetAsync($"{uploadUrlTextbox.Text}/{shareCode}/sync");
+                var respContent = await resp.Content.ReadAsStringAsync();
+                if (resp.IsSuccessStatusCode)
+                {
+                    var newShareKey = respContent.Substring(1, respContent.Length - 2);
+                    System.Diagnostics.Trace.WriteLine($"Got share key {newShareKey}");
+                    this.Invoke(() =>
+                    {
+                        shareKeyTextbox.Text = newShareKey;
+                        settingsChanged = true;
+                        SaveSettings();
+                    });
+                }
+                else
+                {
+                    System.Diagnostics.Trace.WriteLine($"Upload failed with status {resp.StatusCode} and body {respContent}");
+                }
+                return resp.IsSuccessStatusCode;
             }
-            return resp.IsSuccessStatusCode;
         }
     }
 }
