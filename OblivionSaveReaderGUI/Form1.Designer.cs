@@ -44,6 +44,7 @@
             logLabel = new Label();
             tabControl1 = new TabControl();
             tabPageBasic = new TabPage();
+            linkLabel1 = new LinkLabel();
             tabPageAdvanced = new TabPage();
             saveFileDirectoryTextbox = new TextBox();
             saveFilePathLabel = new Label();
@@ -194,6 +195,7 @@
             // 
             // tabPageBasic
             // 
+            tabPageBasic.Controls.Add(linkLabel1);
             tabPageBasic.Controls.Add(syncButton);
             tabPageBasic.Controls.Add(shareKeyTextbox);
             tabPageBasic.Controls.Add(ShareCodeLabel);
@@ -207,6 +209,17 @@
             tabPageBasic.TabIndex = 0;
             tabPageBasic.Text = "Options";
             tabPageBasic.UseVisualStyleBackColor = true;
+            // 
+            // linkLabel1
+            // 
+            linkLabel1.AutoSize = true;
+            linkLabel1.Location = new Point(9, 217);
+            linkLabel1.Name = "linkLabel1";
+            linkLabel1.Size = new Size(425, 32);
+            linkLabel1.TabIndex = 11;
+            linkLabel1.TabStop = true;
+            linkLabel1.Text = "https://oblivion.azuriteforest.net/guide";
+            linkLabel1.LinkClicked += linkLabel1_LinkClicked;
             // 
             // tabPageAdvanced
             // 
@@ -333,5 +346,6 @@
         private CheckBox forceRefreshCheckbox;
         private Button importSettingsButton;
         private Button syncButton;
+        private LinkLabel linkLabel1;
     }
 }

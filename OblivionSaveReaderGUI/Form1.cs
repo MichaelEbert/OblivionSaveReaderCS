@@ -186,6 +186,7 @@ namespace OblivionSaveReaderGUI
         private void shareCodeTextbox_TextChanged(object sender, EventArgs e)
         {
             settingsChanged = true;
+            linkLabel1.Text = "https://oblivion.azuriteforest.net/guide/share.html?code=" + shareCodeTextbox.Text;
         }
 
         private void shareKeyTextbox_TextChanged(object sender, EventArgs e)
@@ -260,6 +261,16 @@ namespace OblivionSaveReaderGUI
                 }
                 return resp.IsSuccessStatusCode;
             }
+        }
+
+        private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            ProcessStartInfo psInfo = new ProcessStartInfo
+            {
+                FileName = linkLabel1.Text,
+                UseShellExecute = true
+            };
+            Process.Start(psInfo);
         }
     }
 }
