@@ -4,7 +4,7 @@ Track local oblivion progress on the [Interactive Oblivion Progress Tracker](htt
 # Instructions
 ![Main interface of auto uploader](./doc/appImage.png)
 1. Download the [dotnet 8 redistributable](https://dotnet.microsoft.com/en-us/download/dotnet/8.0)
-2. Download the [Latest Release](https://github.com/MichaelEbert/OblivionSaveReaderCS/releases/latest/OblivionSaveUploader.zip), unzip, and open app.
+2. Download OblivionSaveUploader.zip from the [Latest Release](https://github.com/MichaelEbert/OblivionSaveReaderCS/releases/latest/), unzip, and open app.
 3. (Optional) Sync with existing interactive checklist:
    1. Copy 6-digit share code into "share code" field
    2. press "Sync With Website"
